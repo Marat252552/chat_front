@@ -1,0 +1,33 @@
+.main_container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.info_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Space Grotesk;
+    scale: 0.8
+}
+
+.info_container.scaled {
+    animation: scaling_and_fading 4s forwards;
+}
+
+@keyframes scaling_and_fading {
+    0% {}
+    50% {
+        scale: 1;
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        scale: 1;
+    }
+}

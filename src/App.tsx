@@ -5,13 +5,13 @@ import LandingPage from "./pages/LandingPage"
 const App = () => {
   return <div style={{
     width: '100%',
-    height: '100vh',
+    minHeight: '100vh',
     display: 'flex',
-    justifyContent: 'center',
     backgroundColor: '#1E1E1E',
-    
+    justifyContent: 'center',
+    userSelect: 'none'
   }}>
-    <LandingPage />
+      <LandingPage />
   </div>
 }
 
