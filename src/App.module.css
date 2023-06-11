@@ -1,0 +1,10 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-color: #1E1E1E;
+    justify-content: center;
+    user-select: none;
+    --text-color: #636363;
+    --star_text-color: white
+}

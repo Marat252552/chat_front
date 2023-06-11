@@ -1,17 +1,11 @@
 import ChatPage from "./pages/ChatPage"
 import LandingPage from "./pages/LandingPage"
 import {HashRouter, Routes, Route, Navigate} from 'react-router-dom'
+import styles from './App.module.css'
 
 
 const App = () => {
-  return <div style={{
-    width: '100%',
-    minHeight: '100vh',
-    display: 'flex',
-    backgroundColor: '#1E1E1E',
-    justifyContent: 'center',
-    userSelect: 'none',
-  }}>
+  return <div className={styles.container}>
     <HashRouter>
       <Routes>
         <Route path="/landing" element={<LandingPage />}/>
