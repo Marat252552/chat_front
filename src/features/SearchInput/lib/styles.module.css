@@ -1,0 +1,12 @@
+.icon {
+    color: var(--text-color);
+    font-size: 13px
+}
+
+.custom_input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-family: Space Grotesk;
+    color: var(--text-color);
+}
