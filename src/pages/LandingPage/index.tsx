@@ -7,7 +7,9 @@ const LandingPage = () => {
         <MainPageTemplate>
             <div className={styles.container}>
                 <span className={styles.upper_text}>Get started with</span>
-                <span className={styles.gradient_text}>AI template</span>
+                <div className={styles.gradient_text_container}>
+                    <span className={styles.gradient_text}>AI template</span>
+                </div>
             </div>
         </MainPageTemplate>
     </>
