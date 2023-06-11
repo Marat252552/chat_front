@@ -10,7 +10,7 @@ const App = () => {
     display: 'flex',
     backgroundColor: '#1E1E1E',
     justifyContent: 'center',
-    userSelect: 'none'
+    userSelect: 'none',
   }}>
     <HashRouter>
       <Routes>
