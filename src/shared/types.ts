@@ -13,5 +13,6 @@ export type Message_T = {
     text: string,
     date: Date,
     username: string,
-    room_id: string
+    room_id: string,
+    user_id: string
 }

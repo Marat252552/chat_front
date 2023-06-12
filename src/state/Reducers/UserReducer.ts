@@ -1,7 +1,8 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
 type User_T = {
-    name: string
+    name: string,
+    id: string
 }
 
 type initialState_T = {
@@ -10,7 +11,8 @@ type initialState_T = {
 
 let initialState: initialState_T = {
     user: {
-        name: ''
+        name: '',
+        id: ''
     }
 }
 // Создаем slice
@@ -20,6 +22,9 @@ const userSlice = createSlice({
     reducers: {
         set_name(state, action: PayloadAction<string>) {
             state.user.name = action.payload
+        },
+        setUserId(state, action: PayloadAction<string>) {
+            state.user.id = action.payload
         }
     }
 })

@@ -7,7 +7,6 @@ import { useAppSelector } from "../../state/hooks";
 
 
 const Message = ({message}: {message: Message_T}) => {
-    console.log(message)
     let {name} = useAppSelector(state => state.userReducer.user)
 
     if(message.event === Event_T.connection) {
@@ -17,7 +16,7 @@ const Message = ({message}: {message: Message_T}) => {
     }
 
     if(message.username === name) {
-        return <OutcomingMessage value={message.text}/>
+        return <OutcomingMessage message={message}/>
     } else {
         return <IncomingMessage message={message}/>
     }

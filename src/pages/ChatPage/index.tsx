@@ -10,11 +10,13 @@ import v4 from 'uuid'
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import userSlice from "../../state/Reducers/UserReducer"
 import MainText from "../../shared/Texts/MainText"
+import {connect} from 'socket.io-client'
 
+export const socket = connect("http://localhost:3000")
 
 const ChatPage = () => {
 
-    let { name } = useAppSelector(state => state.userReducer.user)
+        let { name } = useAppSelector(state => state.userReducer.user)
 
     let { currentDialog } = useAppSelector(state => state.dialogsReducer)
 

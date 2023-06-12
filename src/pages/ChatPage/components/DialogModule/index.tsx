@@ -9,10 +9,17 @@ import Message from '../../../../entities/Message'
 import { connect } from 'socket.io-client'
 import dialogsSlice from '../../../../state/Reducers/DialogsReducer'
 import messagesSlice from '../../../../state/Reducers/MessagesReducer'
+import { socket } from '../..'
 
-const socket = connect("http://localhost:3000")
+
 
 const DialogModule = () => {
+
+    let { room_id, name } = useAppSelector(state => state.dialogsReducer.currentDialog)
+    useEffect(() => {
+        socket.emit("join_room", room_id)
+        console.log('connected to ')
+    }, [room_id])
 
     let { messages: allMessages } = useAppSelector(state => state.messagesReducer)
     let [messages, setMessages] = useState<Message_T[]>([])
@@ -24,12 +31,6 @@ const DialogModule = () => {
         console.log(requiredMessages)
         setMessages(requiredMessages)
     }, [allMessages])
-
-    let { room_id, name } = useAppSelector(state => state.dialogsReducer.currentDialog)
-
-    useEffect(() => {
-        socket.emit("join_room", room_id)
-    }, [])
 
     const [textValue, setTextValue] = useState<string>('')
     const SendMessage = () => {
