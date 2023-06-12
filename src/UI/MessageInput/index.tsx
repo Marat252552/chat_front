@@ -3,13 +3,18 @@ import TransparentInput from '../TransparentInput'
 import styles from './lib/styles.module.css'
 
 
-const MessageInput = () => {
+const MessageInput = ({value, setValue, send}: {value: string, setValue: any, send: any}) => {
     return <>
         <div className={styles.container}>
-            <TransparentInput 
+            <TransparentInput
+                value={value}
+                onChange={(e: any) => {setValue(e.target.value)}}
                 placeholder='Enter your message'
             />
-            <SendOutlined style={{color: 'var(--text-color)'}}/>
+            <SendOutlined 
+            onClick={send}
+            style={{color: 'var(--text-color)'}}
+            />
         </div>
     </>
 }

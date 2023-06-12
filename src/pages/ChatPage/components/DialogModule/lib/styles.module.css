@@ -29,7 +29,8 @@
 .messages_module {
     display: flex;
     justify-content: space-around;
-    
+    flex-direction: column-reverse;
+    gap: 10px
 }
 
 .chat_module {

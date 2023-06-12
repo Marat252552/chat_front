@@ -1,9 +1,9 @@
 import styles from './lib/styles.module.css'
 
 
-const FilledElement = ({children}: {children: any}) => {
-    return <div className={styles.container}>
-        {children}
+const FilledElement = (props: {children: any, style: any}) => {
+    return <div {...props} className={styles.container}>
+        {props.children}
     </div>
 }
 
