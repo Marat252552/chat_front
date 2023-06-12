@@ -9,19 +9,14 @@ import { useEffect } from 'react'
 import v4 from 'uuid'
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import userSlice from "../../state/Reducers/UserReducer"
+import MainText from "../../shared/Texts/MainText"
 
 
 const ChatPage = () => {
 
     let { name } = useAppSelector(state => state.userReducer.user)
-    const { set_name } = userSlice.actions
-    const dispatch = useAppDispatch()
 
-    let [value, setValue] = useState<string>('')
-
-    let login = () => {
-        dispatch(set_name(value))
-    }
+    let { currentDialog } = useAppSelector(state => state.dialogsReducer)
 
     return <>
         <StartTransition />
@@ -30,7 +25,15 @@ const ChatPage = () => {
 
                 <div className={styles.container}>
                     <DialogsBar />
-                    <DialogModule />
+                    {
+                        (!currentDialog.room_id) ?
+                            <div style={{width: '100%', display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                                <MainText>No dialog is chosen</MainText>
+                            </div>
+                            :
+                            <DialogModule />
+                    }
+
                 </div>
 
             </MainPageTemplate>

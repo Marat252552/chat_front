@@ -4,18 +4,32 @@ import MainIcon from "../../shared/Icons/MainIcon"
 import styles from './lib/styles.module.css'
 import { useState } from 'react'
 import SearchInput from "../SearchInput"
+import dialogsSlice from "../../state/Reducers/DialogsReducer"
+import { useAppDispatch } from "../../state/hooks"
 
 
 const AddNewDialogButton = () => {
 
-    let [active, setActive] = useState(true)
+    const { addDialog } = dialogsSlice.actions
+    const dispatch = useAppDispatch()
+
+    let [active, setActive] = useState(false)
+    let [roomId, setRoomId] = useState<string>('')
+    let [name, setName] = useState<string>('')
 
     let closeHiddenModule = () => {
         setActive(false)
+        setName('')
+        setRoomId('')
     }
 
     let AddDialog = () => {
         setActive(prev => !prev)
+        if (roomId && name) {
+            dispatch(addDialog({ room_id: roomId, name }))
+        }
+        setName('')
+        setRoomId('')
     }
 
     return <>
@@ -23,7 +37,16 @@ const AddNewDialogButton = () => {
             <div className={styles.container}>
                 {active && <>
                     <div className={styles.hidden_module}>
-                        <SearchInput />
+                        <input
+                            value={roomId}
+                            onChange={(e) => { setRoomId(e.target.value) }}
+                            placeholder="Enter unique ID"
+                        />
+                        <input
+                            value={name}
+                            onChange={(e) => { setName(e.target.value) }}
+                            placeholder="Enter custom name"
+                        />
                         <FilledElement
                             onClick={closeHiddenModule}
                             style={{ backgroundColor: 'var(--danger-color)', cursor: 'pointer' }}>

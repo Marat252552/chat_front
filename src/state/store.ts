@@ -1,9 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userSlice from "./Reducers/UserReducer";
+import dialogsSlice from "./Reducers/DialogsReducer";
+import messagesSlice from "./Reducers/MessagesReducer";
 
 // Создаем rootReducer
 const rootReducer = combineReducers({
-    userReducer: userSlice.reducer
+    userReducer: userSlice.reducer,
+    dialogsReducer: dialogsSlice.reducer,
+    messagesReducer: messagesSlice.reducer
 })
 // Создаем функцию, в которой конфигурируем redux хранилище
 export const setupStore = () => {
