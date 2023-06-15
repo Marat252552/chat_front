@@ -23,6 +23,10 @@ const dialogsSlice = createSlice({
             state.dialogs = state.dialogs.filter(dialog => dialog.room_id !== action.payload)
             state.currentDialog = {name: '', room_id: ''}
         },
+        removeAllDialogs(state) {
+            state.dialogs = []
+            state.currentDialog = {name: '', room_id: ''}
+        },
         setCurrentRoomId(state, action: PayloadAction<Dialog_T>) {
             state.currentDialog = action.payload
         }

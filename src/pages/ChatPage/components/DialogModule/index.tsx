@@ -37,16 +37,11 @@ const DialogModule = () => {
         setTextValue('')
     }
 
-    let id_status = 'Your id is ' + user_id
-
     return <div className={styles.container}>
         <div className={styles.header_module}>
             <StarText>{name || `Room's name`}</StarText>
             <ClearChatButton />
         </div>
-        <StarText>
-            {id_status}
-        </StarText>
 
         <div className={styles.chat_module_container}>
             <div className={styles.chat_module}>

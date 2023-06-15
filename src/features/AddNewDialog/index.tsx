@@ -60,7 +60,7 @@ const AddNewDialogButton = () => {
                             onClick={closeHiddenModule}
                             style={{ cursor: 'pointer' }}>
                             <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                                <MainIcon Component={CloseOutlined} />
+                                <MainIcon style={{color: 'white'}} Component={CloseOutlined} />
                             </div>
                         </OutlinedElement>
                     </div>
@@ -70,7 +70,7 @@ const AddNewDialogButton = () => {
                     onClick={AddDialog}
                     style={(active) ? { backgroundColor: 'white', cursor: 'pointer' } : { cursor: 'pointer' }}>
                     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                        <MainIcon Component={PlusOutlined} />
+                        <MainIcon style={{color: active? 'black' : 'var(--text-color)'}} Component={PlusOutlined} />
                     </div>
                 </FilledElement>
             </div>
