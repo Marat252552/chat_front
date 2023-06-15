@@ -21,13 +21,13 @@ const DialogModule = () => {
     let dispatch = useAppDispatch()
     let { setUserId } = userSlice.actions
     useEffect(() => {
-        if(user_id) {
+        if (user_id) {
             dispatch(setUserId(user_id))
         }
     }, [user_id])
 
     let socket = connect("http://localhost:3000", {
-        query: {user_id}
+        query: { user_id }
     })
 
     let { room_id, name } = useAppSelector(state => state.dialogsReducer.currentDialog)
@@ -35,13 +35,13 @@ const DialogModule = () => {
     let { addMessage } = messagesSlice.actions
     useEffect(() => {
         socket.emit("join_room", room_id)
-        socket.on("receive_message", (data) => {
-            dispatch(addMessage(data.message))
+        socket.on("receive_message", (message) => {
+            dispatch(addMessage(message))
         })
     }, [room_id])
 
     let { messages: allMessages } = useAppSelector(state => state.messagesReducer)
-    
+
     let messages = allMessages.filter(message => {
         return message.room_id === room_id
     })
@@ -49,14 +49,12 @@ const DialogModule = () => {
     const [textValue, setTextValue] = useState<string>('')
     const SendMessage = () => {
         socket.emit("send_message", {
-            message: {
-                date: new Date(),
-                event: Event_T.message,
-                text: textValue,
-                room_id,
-                user_id,
-                message_id: v4()
-            }
+            date: new Date(),
+            event: Event_T.message,
+            text: textValue,
+            room_id,
+            user_id,
+            message_id: v4()
         })
         setTextValue('')
     }
