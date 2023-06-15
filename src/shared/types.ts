@@ -9,6 +9,7 @@ export type Dialog_T = {
 }
 
 export type Message_T = {
+    message_id: string,
     event: Event_T,
     text: string,
     date: Date,

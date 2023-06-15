@@ -9,28 +9,42 @@ import Message from '../../../../entities/Message'
 import { connect } from 'socket.io-client'
 import dialogsSlice from '../../../../state/Reducers/DialogsReducer'
 import messagesSlice from '../../../../state/Reducers/MessagesReducer'
-import { socket } from '../..'
+import useLocalStorage from '../../../../shared/hooks/useLocalStorage'
+import { v4 } from 'uuid'
+import userSlice from '../../../../state/Reducers/UserReducer'
 
 
 
 const DialogModule = () => {
 
+    const [user_id, setId] = useLocalStorage('id', v4())
+    let dispatch = useAppDispatch()
+    let { setUserId } = userSlice.actions
+    useEffect(() => {
+        if(user_id) {
+            dispatch(setUserId(user_id))
+        }
+    }, [user_id])
+
+    let socket = connect("http://localhost:3000", {
+        query: {user_id}
+    })
+
     let { room_id, name } = useAppSelector(state => state.dialogsReducer.currentDialog)
+
+    let { addMessage } = messagesSlice.actions
     useEffect(() => {
         socket.emit("join_room", room_id)
-        console.log('connected to ')
+        socket.on("receive_message", (data) => {
+            dispatch(addMessage(data.message))
+        })
     }, [room_id])
 
     let { messages: allMessages } = useAppSelector(state => state.messagesReducer)
-    let [messages, setMessages] = useState<Message_T[]>([])
-
-    useEffect(() => {
-        let requiredMessages = allMessages.filter(message => {
-            return message.room_id === room_id
-        })
-        console.log(requiredMessages)
-        setMessages(requiredMessages)
-    }, [allMessages])
+    
+    let messages = allMessages.filter(message => {
+        return message.room_id === room_id
+    })
 
     const [textValue, setTextValue] = useState<string>('')
     const SendMessage = () => {
@@ -39,28 +53,22 @@ const DialogModule = () => {
                 date: new Date(),
                 event: Event_T.message,
                 text: textValue,
-                room_id: room_id
+                room_id,
+                user_id,
+                message_id: v4()
             }
         })
         setTextValue('')
     }
-
-    let dispatch = useAppDispatch()
-    let { addMessage } = messagesSlice.actions
-
-    useEffect(() => {
-        socket.on("recieve_message", (response) => {
-            let message = response.data.message
-            console.log(message)
-            dispatch(addMessage(message))
-        })
-    }, [socket])
 
     return <div className={styles.container}>
         <div className={styles.header_module}>
             <StarText>{name || `Room's name`}</StarText>
             <ClearChatButton />
         </div>
+        <StarText>
+            Your id is {user_id}
+        </StarText>
 
         <div className={styles.chat_module_container}>
             <div className={styles.chat_module}>

@@ -12,7 +12,7 @@ import userSlice from "../../state/Reducers/UserReducer"
 import MainText from "../../shared/Texts/MainText"
 import {connect} from 'socket.io-client'
 
-export const socket = connect("http://localhost:3000")
+
 
 const ChatPage = () => {
 

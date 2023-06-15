@@ -2,7 +2,7 @@ import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
 type User_T = {
     name: string,
-    id: string
+    user_id: string
 }
 
 type initialState_T = {
@@ -12,7 +12,7 @@ type initialState_T = {
 let initialState: initialState_T = {
     user: {
         name: '',
-        id: ''
+        user_id: ''
     }
 }
 // Создаем slice
@@ -24,7 +24,7 @@ const userSlice = createSlice({
             state.user.name = action.payload
         },
         setUserId(state, action: PayloadAction<string>) {
-            state.user.id = action.payload
+            state.user.user_id = action.payload
         }
     }
 })

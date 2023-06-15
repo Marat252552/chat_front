@@ -1,6 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
-import Dialog from '../../entities/Dialog'
-import { Dialog_T, Message_T } from '../../shared/types'
+import { Message_T } from '../../shared/types'
 
 
 
@@ -17,6 +16,7 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {
         addMessage(state, action: PayloadAction<Message_T>) {
+            state.messages = state.messages.filter(message => message.message_id !== action.payload.message_id)
             state.messages.push(action.payload)
         }
     }
