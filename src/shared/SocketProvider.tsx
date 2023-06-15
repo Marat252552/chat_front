@@ -31,7 +31,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
     const [socket, setSocket] = useState<Socket<any>>()
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3000', {
+        const newSocket = io(import.meta.env.VITE_BACKEND_URL, {
             query: { user_id }
         })
         setSocket(newSocket)
