@@ -6,7 +6,7 @@
     padding: 15px;
     align-items: center;
     gap: 10px;
-    background-color: var(--fill-color);
+    border: solid 2px white;
     border-radius: 10px;
 }
 

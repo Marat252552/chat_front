@@ -6,6 +6,8 @@ import { useState } from 'react'
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch } from "../../state/hooks"
 import { useSocket } from "../../shared/SocketProvider"
+import FilledInput from "../../UI/FilledInput"
+import OutlinedElement from "../../UI/OutlinedElement"
 
 
 const AddNewDialogButton = () => {
@@ -44,29 +46,29 @@ const AddNewDialogButton = () => {
             <div className={styles.container}>
                 {active && <>
                     <div className={styles.hidden_module}>
-                        <input
+                        <FilledInput
                             value={roomId}
-                            onChange={(e) => { setRoomId(e.target.value) }}
+                            onChange={(e: any) => { setRoomId(e.target.value) }}
                             placeholder="Enter unique ID"
                         />
-                        <input
+                        <FilledInput
                             value={name}
-                            onChange={(e) => { setName(e.target.value) }}
+                            onChange={(e: any) => { setName(e.target.value) }}
                             placeholder="Enter custom name"
                         />
-                        <FilledElement
+                        <OutlinedElement
                             onClick={closeHiddenModule}
-                            style={{ backgroundColor: 'var(--danger-color)', cursor: 'pointer' }}>
+                            style={{ cursor: 'pointer' }}>
                             <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                                 <MainIcon Component={CloseOutlined} />
                             </div>
-                        </FilledElement>
+                        </OutlinedElement>
                     </div>
 
                 </>}
                 <FilledElement
                     onClick={AddDialog}
-                    style={(active) ? { backgroundColor: 'var(--success-color)', cursor: 'pointer' } : { cursor: 'pointer' }}>
+                    style={(active) ? { backgroundColor: 'white', cursor: 'pointer' } : { cursor: 'pointer' }}>
                     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                         <MainIcon Component={PlusOutlined} />
                     </div>

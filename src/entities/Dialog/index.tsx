@@ -2,10 +2,11 @@ import Element from "../../UI/Element"
 import { Dialog_T } from "../../shared/types"
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch } from "../../state/hooks"
+import StatusCircle from "../StatusCircle"
 import styles from './lib/styles.module.css'
 
 
-const Dialog = ({ dialog }: { dialog: Dialog_T }) => {
+const Dialog = ({ dialog, is_connected }: { dialog: Dialog_T, is_connected: boolean }) => {
 
     let { setCurrentRoomId } = dialogsSlice.actions
     let dispatch = useAppDispatch()
@@ -17,7 +18,7 @@ const Dialog = ({ dialog }: { dialog: Dialog_T }) => {
     return <>
         <div onClick={changeCurrentDialog}>
             <Element>
-                <div className={styles.circle}></div>
+                <StatusCircle is_connected={is_connected}/>
                 <span className={styles.text}>{dialog.name || dialog.room_id || 'ID'}</span>
             </Element>
         </div>

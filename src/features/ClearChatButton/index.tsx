@@ -12,25 +12,25 @@ const ClearChatButton = () => {
 
     const socket = useSocket() as any
 
-    let {room_id} = useAppSelector(state => state.dialogsReducer.currentDialog)
+    let { room_id } = useAppSelector(state => state.dialogsReducer.currentDialog)
 
-    let {removeDialog} = dialogsSlice.actions
+    let { removeDialog } = dialogsSlice.actions
     let dispatch = useAppDispatch()
 
-
-
     let leaveRoom = () => {
-        if(!socket) return
+        if (!socket) return
         socket.emit('leave_room', room_id)
         dispatch(removeDialog(room_id))
     }
 
-    return <MainButton>
-        <div onClick={leaveRoom} className={styles.container}>
-            <MainIcon Component={RedoOutlined} />
-            <MainText>Clear chat</MainText>
-        </div>
-    </MainButton>
+    return <div onClick={leaveRoom}>
+        <MainButton>
+            <div className={styles.container}>
+                <MainIcon Component={RedoOutlined} />
+                <MainText>Leave chat</MainText>
+            </div>
+        </MainButton>
+    </div>
 
 }
 
