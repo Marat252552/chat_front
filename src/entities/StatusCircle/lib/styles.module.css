@@ -1,0 +1,13 @@
+.circle {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.circle.connected {
+    background-color: green;
+}
+
+.circle.disconnected {
+    background-color: red;
+}

@@ -1,47 +1,25 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import MessageInput from '../../../../UI/MessageInput'
 import ClearChatButton from '../../../../features/ClearChatButton'
 import StarText from '../../../../shared/Texts/StarText'
-import { Event_T, Message_T } from '../../../../shared/types'
+import { Event_T } from '../../../../shared/types'
 import styles from './lib/styles.module.css'
-import { useAppDispatch, useAppSelector } from '../../../../state/hooks'
+import { useAppSelector } from '../../../../state/hooks'
 import Message from '../../../../entities/Message'
-import { connect } from 'socket.io-client'
-import dialogsSlice from '../../../../state/Reducers/DialogsReducer'
-import messagesSlice from '../../../../state/Reducers/MessagesReducer'
-import useLocalStorage from '../../../../shared/hooks/useLocalStorage'
 import { v4 } from 'uuid'
-import userSlice from '../../../../state/Reducers/UserReducer'
+import { useSocket } from '../../../../shared/SocketProvider'
 
 
 
 const DialogModule = () => {
 
-    const [user_id, setId] = useLocalStorage('id', v4())
-    let dispatch = useAppDispatch()
-    let { setUserId } = userSlice.actions
-    useEffect(() => {
-        if (user_id) {
-            dispatch(setUserId(user_id))
-        }
-    }, [user_id])
+    const socket = useSocket() as any
 
-    let socket = connect("http://localhost:3000", {
-        query: { user_id }
-    })
-
-    let { room_id, name } = useAppSelector(state => state.dialogsReducer.currentDialog)
-
-    let { addMessage } = messagesSlice.actions
-    useEffect(() => {
-        socket.emit("join_room", room_id)
-        socket.on("receive_message", (message) => {
-            dispatch(addMessage(message))
-        })
-    }, [room_id])
-
+    let { currentDialog } = useAppSelector(state => state.dialogsReducer)
+    let { room_id, name } = currentDialog
+    let { user_id } = useAppSelector(state => state.userReducer.user)
     let { messages: allMessages } = useAppSelector(state => state.messagesReducer)
-
+    
     let messages = allMessages.filter(message => {
         return message.room_id === room_id
     })
@@ -59,13 +37,15 @@ const DialogModule = () => {
         setTextValue('')
     }
 
+    let id_status = 'Your id is ' + user_id
+
     return <div className={styles.container}>
         <div className={styles.header_module}>
             <StarText>{name || `Room's name`}</StarText>
             <ClearChatButton />
         </div>
         <StarText>
-            Your id is {user_id}
+            {id_status}
         </StarText>
 
         <div className={styles.chat_module_container}>

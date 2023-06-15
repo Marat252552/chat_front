@@ -3,12 +3,18 @@ import FilledElement from "../../UI/FilledElement"
 import MainIcon from "../../shared/Icons/MainIcon"
 import styles from './lib/styles.module.css'
 import { useState } from 'react'
-import SearchInput from "../SearchInput"
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch } from "../../state/hooks"
+import { useSocket } from "../../shared/SocketProvider"
 
 
 const AddNewDialogButton = () => {
+
+    const socket = useSocket() as any
+
+    const roomConnect = (room_id: string) => {
+        socket.emit('join_room', room_id)
+    }
 
     const { addDialog } = dialogsSlice.actions
     const dispatch = useAppDispatch()
@@ -28,6 +34,7 @@ const AddNewDialogButton = () => {
         if (roomId && name) {
             dispatch(addDialog({ room_id: roomId, name }))
         }
+        roomConnect(roomId)
         setName('')
         setRoomId('')
     }

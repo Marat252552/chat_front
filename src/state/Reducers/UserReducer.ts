@@ -6,14 +6,16 @@ type User_T = {
 }
 
 type initialState_T = {
-    user: User_T
+    user: User_T,
+    is_connected: boolean
 }
 
 let initialState: initialState_T = {
     user: {
         name: '',
         user_id: ''
-    }
+    },
+    is_connected: false
 }
 // Создаем slice
 const userSlice = createSlice({
@@ -25,6 +27,9 @@ const userSlice = createSlice({
         },
         setUserId(state, action: PayloadAction<string>) {
             state.user.user_id = action.payload
+        },
+        setConnection(state, action: PayloadAction<boolean>) {
+            state.is_connected = action.payload
         }
     }
 })
