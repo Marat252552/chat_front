@@ -29,11 +29,12 @@ const AddNewDialogButton = () => {
         setActive(prev => !prev)
     }
 
-    let { register, handleSubmit } = useForm<Values_T>()
+    let { register, handleSubmit, reset } = useForm<Values_T>()
     let onSubmit = ({ name, room_id }: Values_T) => {
         roomConnect(room_id, socket, user_id)
         dispatch(addDialog({ name, room_id }))
         setActive(false)
+        reset()
     }
 
     return <>
@@ -47,12 +48,14 @@ const AddNewDialogButton = () => {
                             {...register('room_id', {
                                 required: true
                             })}
+                            autoComplete='off'
                             placeholder="Уникальный ID"
                         />
                         <FilledInput
                             {...register('name', {
                                 required: true
                             })}
+                            autoComplete='off'
                             placeholder="Название"
                         />
 
