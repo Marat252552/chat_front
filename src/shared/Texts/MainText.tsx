@@ -1,6 +1,6 @@
 
 const Style = {
-    fontFamily: "Space Grotesk",
+    fontFamily: "Montserrat",
     fontSize: "14px",
     color: 'var(--text-color)'
 }

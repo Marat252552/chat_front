@@ -17,7 +17,6 @@ export const SocketProvider = ({ children }: { children: any }) => {
     const [user_id] = useLocalStorage('id', v4())
 
     let dispatch = useAppDispatch()
-
     let {setConnection} = userSlice.actions
 
     let {addMessage} = messagesSlice.actions

@@ -1,5 +1,5 @@
 const Style = {
-    fontFamily: "Space Grotesk",
+    fontFamily: "Montserrat",
     fontSize: "15px",
     color: 'var(--star_text-color)'
 }

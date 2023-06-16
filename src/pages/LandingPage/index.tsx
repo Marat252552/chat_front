@@ -10,7 +10,6 @@ import StartTransition from '../../shared/transitions/StartTransition'
 const LandingPage = () => {
 
     let [isScaled, setIsScaled] = useState(false)
-
     let [isScrolled, setIsScrolled] = useState(false)
 
     let navigate = useNavigate()
@@ -42,7 +41,6 @@ const LandingPage = () => {
                 </div>
             </MainPageTemplate>
         </div>
-        <div className={styles.ending_transition}></div>
     </>
 }
 

@@ -1,0 +1,29 @@
+.background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    background: white;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0, 0 0);
+}
+
+.background.scrolled {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    background: white;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0, 0 0);
+    animation: scrolling_up 2s 1s forwards ;
+}
+
+@keyframes scrolling_up {
+    0% {}
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 50%);
+    }
+}

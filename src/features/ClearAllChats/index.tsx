@@ -1,9 +1,10 @@
 import { RedoOutlined } from "@ant-design/icons"
-import FilledElement from "../../UI/FilledElement"
 import styles from './lib/styles.module.css'
 import MainIcon from "../../shared/Icons/MainIcon"
 import { useAppDispatch } from "../../state/hooks"
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
+import MainButton from "../../UI/Buttons/MainButton"
+import MiddleText from "../../shared/Texts/MiddleText"
 
 
 const ClearAllChats = () => {
@@ -16,12 +17,11 @@ const ClearAllChats = () => {
     }
     return <>
         <div
-            onClick={clearAllChats}
             className={styles.container}>
-            <FilledElement>
+            <MainButton onClick={clearAllChats}>
                 <MainIcon Component={RedoOutlined} />
-                <span className={styles.text}>Clear chats</span>
-            </FilledElement>
+                <MiddleText>Покинуть все чаты</MiddleText>
+            </MainButton>
         </div>
     </>
 }

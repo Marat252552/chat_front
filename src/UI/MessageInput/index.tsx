@@ -9,7 +9,7 @@ const MessageInput = ({value, setValue, send}: {value: string, setValue: any, se
             <TransparentInput
                 value={value}
                 onChange={(e: any) => {setValue(e.target.value)}}
-                placeholder='Enter your message'
+                placeholder='Введите сообщение'
             />
             <SendOutlined 
             onClick={send}

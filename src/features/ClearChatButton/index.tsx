@@ -1,11 +1,11 @@
 import { RedoOutlined } from "@ant-design/icons"
-import MainText from "../../shared/Texts/MainText"
 import styles from './lib/styles.module.css'
 import MainIcon from "../../shared/Icons/MainIcon"
 import MainButton from "../../UI/Buttons/MainButton"
 import { useSocket } from "../../shared/SocketProvider"
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
+import MiddleText from "../../shared/Texts/MiddleText"
 
 
 const ClearChatButton = () => {
@@ -23,11 +23,11 @@ const ClearChatButton = () => {
         dispatch(removeDialog(room_id))
     }
 
-    return <div onClick={leaveRoom}>
-        <MainButton>
+    return <div>
+        <MainButton onClick={leaveRoom}>
             <div className={styles.container}>
                 <MainIcon Component={RedoOutlined} />
-                <MainText>Leave chat</MainText>
+                <MiddleText>Покинуть чат</MiddleText>
             </div>
         </MainButton>
     </div>

@@ -5,6 +5,7 @@ import styles from './App.module.css'
 import { setupStore } from "./state/store"
 import { Provider } from "react-redux"
 import { SocketProvider } from "./shared/SocketProvider"
+import InfoPage from "./pages/InfoPage"
 
 let store = setupStore()
 
@@ -17,6 +18,7 @@ const App = () => {
           <Routes>
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/chat" element={<ChatPage />} />
+            <Route path="/info" element={<InfoPage />} />
             <Route path="*" element={<Navigate to='/landing' />} />
           </Routes>
         </HashRouter>

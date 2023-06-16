@@ -49,12 +49,12 @@ const AddNewDialogButton = () => {
                         <FilledInput
                             value={roomId}
                             onChange={(e: any) => { setRoomId(e.target.value) }}
-                            placeholder="Enter unique ID"
+                            placeholder="Уникальный ID"
                         />
                         <FilledInput
                             value={name}
                             onChange={(e: any) => { setName(e.target.value) }}
-                            placeholder="Enter custom name"
+                            placeholder="Название"
                         />
                         <OutlinedElement
                             onClick={closeHiddenModule}

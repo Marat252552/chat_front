@@ -1,0 +1,11 @@
+.container {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    padding: 15px;
+    align-items: start;
+    gap: 10px;
+    background-color: var(--fill-color);
+    border-radius: 10px;
+}
+
