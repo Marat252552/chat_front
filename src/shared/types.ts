@@ -1,5 +1,5 @@
 export enum Event_T {
-    connection = 'connection',
+    user_connected = 'user_connected',
     message = 'message'
 }
 
@@ -13,7 +13,7 @@ export type Message_T = {
     event: Event_T,
     text: string,
     date: Date,
-    username: string,
+    username?: string,
     room_id: string,
     user_id: string
 }

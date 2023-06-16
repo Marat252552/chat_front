@@ -4,18 +4,33 @@ import MainIcon from "../../shared/Icons/MainIcon"
 import styles from './lib/styles.module.css'
 import { useState } from 'react'
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
-import { useAppDispatch } from "../../state/hooks"
+import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { useSocket } from "../../shared/SocketProvider"
 import FilledInput from "../../UI/FilledInput"
 import OutlinedElement from "../../UI/OutlinedElement"
+import { Event_T } from "../../shared/types"
+import { v4 } from "uuid"
 
 
 const AddNewDialogButton = () => {
 
     const socket = useSocket() as any
 
+    let {user_id} = useAppSelector(state => state.userReducer.user)
+
     const roomConnect = (room_id: string) => {
-        socket.emit('join_room', room_id)
+        let data = {
+            message: {
+                user_id,
+                event: Event_T.user_connected,
+                date: new Date(),
+                text: 'Новый пользователь успешно присоединился',
+                room_id,
+                message_id: v4()
+            },
+            room_id
+        }
+        socket.emit('join_room', data)
     }
 
     const { addDialog } = dialogsSlice.actions

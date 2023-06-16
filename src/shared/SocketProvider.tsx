@@ -5,6 +5,7 @@ import { v4 } from 'uuid'
 import { useAppDispatch, useAppSelector } from '../state/hooks'
 import userSlice from '../state/Reducers/UserReducer'
 import messagesSlice from '../state/Reducers/MessagesReducer'
+import { Event_T, Message_T } from './types'
 
 const SocketContext = React.createContext(null)
 
@@ -43,7 +44,18 @@ export const SocketProvider = ({ children }: { children: any }) => {
         if(socket) {
             socket.on('connect', () => {
                 dialogs.forEach(dialog => {
-                    socket.emit('join_room', dialog.room_id)
+                    let data = {
+                        message: {
+                            user_id,
+                            event: Event_T.user_connected,
+                            date: new Date(),
+                            text: 'Новый пользователь успешно присоединился',
+                            room_id: dialog.room_id,
+                            message_id: () => v4()
+                        },
+                        room_id: dialog.room_id
+                    }
+                    socket.emit('join_room', data)
                 })
                 dispatch(setConnection(true))
             })
@@ -51,6 +63,9 @@ export const SocketProvider = ({ children }: { children: any }) => {
                 dispatch(setConnection(false))
             })
             socket.on("receive_message", (message: any) => {
+                dispatch(addMessage(message))
+            })
+            socket.on("user_connected", (message: Message_T) => {
                 console.log(message)
                 dispatch(addMessage(message))
             })

@@ -49,7 +49,7 @@ const DialogModule = () => {
                 <div className={styles.messages_module}>
 
                     {messages.map(message => {
-                        return <Message message={message} />
+                        return <Message key={message.message_id} message={message} />
                     })}
 
                 </div>
