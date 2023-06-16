@@ -17,7 +17,9 @@ const dialogsSlice = createSlice({
     initialState,
     reducers: {
         addDialog(state, action: PayloadAction<Dialog_T>) {
-            state.dialogs.push(action.payload)
+            let newDialog = action.payload
+            state.dialogs = state.dialogs.filter(dialog => dialog.room_id !== newDialog.room_id)
+            state.dialogs.push(newDialog)
         },
         removeDialog(state, action: PayloadAction<string>) {
             state.dialogs = state.dialogs.filter(dialog => dialog.room_id !== action.payload)
