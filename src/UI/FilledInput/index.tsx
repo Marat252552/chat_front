@@ -1,15 +1,17 @@
-import FilledElement from "../FilledElement"
-import TransparentInput from "../TransparentInput"
+import {forwardRef} from 'react'
+import FilledElement from '../FilledElement'
+import TransparentInput from '../TransparentInput'
 
 
-const FilledInput = (props: any) => {
+const FilledInput = forwardRef((props: any, ref: any) => {
     return <>
         <FilledElement>
             <TransparentInput 
+                ref={ref}
                 {...props}
             />
         </FilledElement>
     </>
-}
+})
 
 export default FilledInput

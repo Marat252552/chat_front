@@ -1,96 +1,77 @@
-import { CloseOutlined, PlusOutlined } from "@ant-design/icons"
-import FilledElement from "../../UI/FilledElement"
-import MainIcon from "../../shared/Icons/MainIcon"
 import styles from './lib/styles.module.css'
 import { useState } from 'react'
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { useSocket } from "../../shared/SocketProvider"
 import FilledInput from "../../UI/FilledInput"
-import OutlinedElement from "../../UI/OutlinedElement"
-import { Event_T } from "../../shared/types"
-import { v4 } from "uuid"
+import { useForm } from "react-hook-form"
+import roomConnect from "./processes/roomConnect"
+import SubmitButton from "./elements/SubmitButton"
+import OpenFormButton from "./elements/OpenFormButton"
+import CloseFormButton from "./elements/CloseFormButton"
 
+type Values_T = {
+    name: string,
+    room_id: string
+}
 
 const AddNewDialogButton = () => {
 
     const socket = useSocket() as any
 
-    let {user_id} = useAppSelector(state => state.userReducer.user)
-
-    const roomConnect = (room_id: string) => {
-        let data = {
-            message: {
-                user_id,
-                event: Event_T.user_connected,
-                date: new Date(),
-                text: 'Новый пользователь успешно присоединился',
-                room_id,
-                message_id: v4()
-            },
-            room_id
-        }
-        socket.emit('join_room', data)
-    }
+    let { user_id } = useAppSelector(state => state.userReducer.user)
 
     const { addDialog } = dialogsSlice.actions
     const dispatch = useAppDispatch()
 
     let [active, setActive] = useState(false)
-    let [roomId, setRoomId] = useState<string>('')
-    let [name, setName] = useState<string>('')
-
-    let closeHiddenModule = () => {
-        setActive(false)
-        setName('')
-        setRoomId('')
+    const toggleActive = () => {
+        setActive(prev => !prev)
     }
 
-    let AddDialog = () => {
-        setActive(prev => !prev)
-        if (roomId && name) {
-            dispatch(addDialog({ room_id: roomId, name }))
-        }
-        roomConnect(roomId)
-        setName('')
-        setRoomId('')
+    let { register, handleSubmit } = useForm<Values_T>()
+    let onSubmit = ({ name, room_id }: Values_T) => {
+        roomConnect(room_id, socket, user_id)
+        dispatch(addDialog({ name, room_id }))
+        setActive(false)
     }
 
     return <>
-        <div className={styles.button}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.container}>
+
                 {active && <>
+
                     <div className={styles.hidden_module}>
                         <FilledInput
-                            value={roomId}
-                            onChange={(e: any) => { setRoomId(e.target.value) }}
+                            {...register('room_id', {
+                                required: true
+                            })}
                             placeholder="Уникальный ID"
                         />
                         <FilledInput
-                            value={name}
-                            onChange={(e: any) => { setName(e.target.value) }}
+                            {...register('name', {
+                                required: true
+                            })}
                             placeholder="Название"
                         />
-                        <OutlinedElement
-                            onClick={closeHiddenModule}
-                            style={{ cursor: 'pointer' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                                <MainIcon style={{color: 'white'}} Component={CloseOutlined} />
-                            </div>
-                        </OutlinedElement>
-                    </div>
 
+                        <SubmitButton />
+
+                    </div>
                 </>}
-                <FilledElement
-                    onClick={AddDialog}
-                    style={(active) ? { backgroundColor: 'white', cursor: 'pointer' } : { cursor: 'pointer' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                        <MainIcon style={{color: active? 'black' : 'var(--text-color)'}} Component={PlusOutlined} />
-                    </div>
-                </FilledElement>
-            </div>
 
-        </div>
+                <div onClick={toggleActive} style={{ width: '100%', cursor: 'pointer' }}>
+                    {
+                        active ?
+                            <CloseFormButton />
+                            :
+                            <OpenFormButton />
+                    }
+                </div>
+
+            </div>
+        </form>
     </>
 }
 
