@@ -1,5 +1,5 @@
-import MainText from '../../shared/Texts/MainText'
 import { Message_T } from '../../shared/types'
+import Time from '../Time'
 import styles from './lib/styles.module.css'
 
 
@@ -9,9 +9,7 @@ const IncomingMessage = ({ message }: { message: Message_T }) => {
     return <div className={styles.container}>
         <div className={styles.info_module}>
             <div className={styles.text}>{message.text}</div>
-            <div className={styles.time_module}>
-                <MainText>{`${date.getHours()}:${date.getMinutes()}`}</MainText>
-            </div>
+            <Time date={date}/>
         </div>
     </div>
 }

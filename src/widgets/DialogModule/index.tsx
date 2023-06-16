@@ -26,6 +26,7 @@ const DialogModule = () => {
 
     const [textValue, setTextValue] = useState<string>('')
     const SendMessage = () => {
+        if(!textValue) return
         socket.emit("send_message", {
             date: new Date(),
             event: Event_T.message,
