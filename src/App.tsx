@@ -10,6 +10,7 @@ import InfoPage from "./pages/InfoPage"
 let store = setupStore()
 
 const App = () => {
+
   return <div className={styles.container}>
 
     <Provider store={store}>

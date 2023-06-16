@@ -5,9 +5,11 @@ import InfoPageNavigateButton from '../../features/InfoPageNavigateButton'
 import StatusDisplay from '../../features/StatusDisplay'
 import { useAppSelector } from '../../state/hooks' 
 import styles from './lib/styles.module.css'
+import {memo} from 'react'
 
+const DialogsBar = memo(({navigateToInfoPage}: {navigateToInfoPage: () => void}) => {
 
-const DialogsBar = ({navigateToInfoPage}: {navigateToInfoPage: () => void}) => {
+    console.log('dialogs bar rerendered')
 
     let dialogs = useAppSelector(state => state.dialogsReducer.dialogs)
     let { is_connected } = useAppSelector(state => state.userReducer)
@@ -32,6 +34,7 @@ const DialogsBar = ({navigateToInfoPage}: {navigateToInfoPage: () => void}) => {
 
         <AddNewDialogButton />
     </div>
-}
+})
+
 
 export default DialogsBar

@@ -26,6 +26,7 @@ const dialogsSlice = createSlice({
             state.currentDialog = {name: '', room_id: ''}
         },
         removeAllDialogs(state) {
+            if(!state.dialogs[0] && !state.currentDialog.name) return
             state.dialogs = []
             state.currentDialog = {name: '', room_id: ''}
         },

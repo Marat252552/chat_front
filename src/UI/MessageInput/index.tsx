@@ -6,12 +6,15 @@ import { useSocket } from '../../shared/SocketProvider'
 import { useAppSelector } from '../../state/hooks'
 import TransparentButton from '../TransparentButtonContainer'
 import sendMessage from './processes/sendMessage'
+import {memo} from 'react'
 
 type Values_T = {
     text: string
 }
 
-const MessageInput = ({ room_id }: { room_id: string }) => {
+const MessageInput = memo(({ room_id }: { room_id: string }) => {
+
+    console.log('message input rerendered')
 
     let socket = useSocket() as any
     let { user_id } = useAppSelector(state => state.userReducer.user)
@@ -44,6 +47,6 @@ const MessageInput = ({ room_id }: { room_id: string }) => {
         </form>
 
     </>
-}
+})
 
 export default MessageInput

@@ -1,8 +1,10 @@
 import { InfoCircleOutlined } from '@ant-design/icons'
 import IconTextButton from '../../UI/Buttons/IconTextButton'
+import { memo } from 'react'
 
 
-const InfoPageNavigateButton = ({ navigateToInfoPage }: { navigateToInfoPage: () => void }) => {
+const InfoPageNavigateButton = memo(({ navigateToInfoPage }: { navigateToInfoPage: () => void }) => {
+    
     return (
         <IconTextButton
             text='Информация'
@@ -10,6 +12,6 @@ const InfoPageNavigateButton = ({ navigateToInfoPage }: { navigateToInfoPage: ()
             onClick={navigateToInfoPage}
         />
     )
-}
+})
 
 export default InfoPageNavigateButton

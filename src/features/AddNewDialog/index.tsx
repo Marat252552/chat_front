@@ -1,5 +1,5 @@
 import styles from './lib/styles.module.css'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import { useSocket } from "../../shared/SocketProvider"
@@ -15,7 +15,7 @@ type Values_T = {
     room_id: string
 }
 
-const AddNewDialogButton = () => {
+const AddNewDialogButton = memo(() => {
 
     const socket = useSocket() as any
 
@@ -76,6 +76,6 @@ const AddNewDialogButton = () => {
             </div>
         </form>
     </>
-}
+})
 
 export default AddNewDialogButton
