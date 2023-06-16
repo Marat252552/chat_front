@@ -1,15 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons'
-import FilledElement from '../../../UI/FilledElement'
+import IconFilledButton from '../../../UI/Buttons/IconFilledButton'
 import MainIcon from '../../../shared/Icons/MainIcon'
-import TransparentButton from '../../../UI/TransparentButton'
 
-const SubmitButton = () => (
-    <TransparentButton>
-        <FilledElement
-            style={{ backgroundColor: 'white', cursor: 'pointer', width: '100%' }}>
-            <MainIcon style={{ color: 'black', margin: '0 auto' }} Component={PlusOutlined} />
-        </FilledElement>
-    </TransparentButton>
-)
+const SubmitButton = () => {
+    let IconComponent = <MainIcon style={{color: 'black'}} Icon={PlusOutlined}/>
+    return <>
+        <IconFilledButton IconComponent={IconComponent}/>
+    </>
+}
+
+
 
 export default SubmitButton

@@ -7,6 +7,7 @@
     user-select: none;
     --text-color: #636363;
     --middle-text-color: #9a9a9a;
+    --button-color: rgb(160, 160, 160);
     --star_text-color: white;
     --danger-color: rgb(186, 142, 149);
     --success-color: rgb(30, 81, 30);

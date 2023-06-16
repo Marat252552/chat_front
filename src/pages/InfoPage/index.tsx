@@ -7,7 +7,8 @@ import { useState } from 'react'
 import StarText from "../../shared/Texts/StarText"
 import MiddleText from "../../shared/Texts/MiddleText"
 import FilledContainer from "../../UI/FilledContainer"
-import MainButton from "../../UI/Buttons/MainButton"
+import IconTextButton from "../../UI/Buttons/IconTextButton"
+import { RollbackOutlined } from "@ant-design/icons"
 
 
 const InfoPage = () => {
@@ -29,7 +30,13 @@ const InfoPage = () => {
                 <div className={styles.container}>
                     <FilledContainer>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', gap: '10px' }}>
-                            <MainButton onClick={navigateToChatPage}><MiddleText>Назад</MiddleText></MainButton>
+
+                            <IconTextButton
+                                onClick={navigateToChatPage}
+                                Icon={RollbackOutlined}
+                                text="Назад"
+                            />
+
                             <StarText>Почему загрузка идет так долго?</StarText>
                             <MiddleText>
                                 При первом запуске приложения, установка соединения может занимать до 30 секунд

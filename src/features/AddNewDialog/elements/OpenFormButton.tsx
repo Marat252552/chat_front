@@ -1,13 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
-import FilledElement from '../../../UI/FilledElement'
+import IconFilledButton from '../../../UI/Buttons/IconFilledButton'
 import MainIcon from '../../../shared/Icons/MainIcon'
 
-const OpenFormButton = () => (
-    <FilledElement >
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-            <MainIcon style={{ color: 'var(--text-color)' }} Component={PlusOutlined} />
-        </div>
-    </FilledElement>
-)
+const OpenFormButton = () => {
+    let IconComponent = <MainIcon style={{color: 'black'}} Icon={PlusOutlined} />
+    return <>
+        <IconFilledButton IconComponent={IconComponent} />
+    </>
+}
 
 export default OpenFormButton

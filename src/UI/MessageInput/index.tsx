@@ -4,7 +4,7 @@ import styles from './lib/styles.module.css'
 import { useForm } from 'react-hook-form'
 import { useSocket } from '../../shared/SocketProvider'
 import { useAppSelector } from '../../state/hooks'
-import TransparentButton from '../TransparentButton'
+import TransparentButton from '../TransparentButtonContainer'
 import sendMessage from './processes/sendMessage'
 
 type Values_T = {

@@ -1,9 +1,0 @@
-.text {
-    font-family: Montserrat;
-    color: var(--text-color);
-    font-size: 13px
-}
-
-.container {
-    cursor: pointer;
-}
