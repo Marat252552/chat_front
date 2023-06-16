@@ -8,8 +8,10 @@ const IncomingMessage = ({ message }: { message: Message_T }) => {
 
     return <div className={styles.container}>
         <div className={styles.info_module}>
-            <div className={styles.text}>{message.text}</div>
-            <Time date={date}/>
+            <div className={styles.text}>
+                {message.text}
+            </div>
+            <Time date={date} />
         </div>
     </div>
 }

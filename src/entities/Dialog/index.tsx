@@ -1,4 +1,5 @@
 import Element from "../../UI/Element"
+import getShortenedValue from "../../shared/helpers/getShortenedValue"
 import { Dialog_T } from "../../shared/types"
 import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch } from "../../state/hooks"
@@ -15,11 +16,14 @@ const Dialog = ({ dialog, is_connected }: { dialog: Dialog_T, is_connected: bool
         dispatch(setCurrentRoomId(dialog))
     }
 
+    let name = getShortenedValue(dialog.name, 12)
+    let room_id = getShortenedValue(dialog.room_id, 12)
+    
     return <>
         <div onClick={changeCurrentDialog}>
             <Element>
                 <StatusCircle is_connected={is_connected}/>
-                <span className={styles.text}>{dialog.name || dialog.room_id || 'ID'}</span>
+                <span className={styles.text}>{name || room_id || 'ID'}</span>
             </Element>
         </div>
     </>
