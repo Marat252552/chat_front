@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import MessageInput from '../../../../UI/MessageInput'
-import ClearChatButton from '../../../../features/ClearChatButton'
-import StarText from '../../../../shared/Texts/StarText'
-import { Event_T } from '../../../../shared/types'
+import MessageInput from '../../UI/MessageInput'
+import ClearChatButton from '../../features/ClearChatButton'
+import StarText from '../../shared/Texts/StarText'
+import { Event_T } from '../../shared/types' 
 import styles from './lib/styles.module.css'
-import { useAppSelector } from '../../../../state/hooks'
-import Message from '../../../../entities/Message'
+import { useAppSelector } from '../../state/hooks' 
+import Message from '../../entities/Message'
 import { v4 } from 'uuid'
-import { useSocket } from '../../../../shared/SocketProvider'
+import { useSocket } from '../../shared/SocketProvider'
 
 
 

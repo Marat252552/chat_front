@@ -1,9 +1,9 @@
-import Dialog from '../../../../entities/Dialog'
-import AddNewDialogButton from '../../../../features/AddNewDialog'
-import ClearAllChats from '../../../../features/ClearAllChats'
-import InfoPageNavigateButton from '../../../../features/InfoPageNavigateButton'
-import StatusDisplay from '../../../../features/StatusDisplay'
-import { useAppSelector } from '../../../../state/hooks'
+import Dialog from '../../entities/Dialog'
+import AddNewDialogButton from '../../features/AddNewDialog'
+import ClearAllChats from '../../features/ClearAllChats'
+import InfoPageNavigateButton from '../../features/InfoPageNavigateButton'
+import StatusDisplay from '../../features/StatusDisplay'
+import { useAppSelector } from '../../state/hooks' 
 import styles from './lib/styles.module.css'
 
 
