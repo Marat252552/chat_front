@@ -6,7 +6,7 @@ import { useAppSelector } from "../../state/hooks";
 
 
 
-const Message = ({message}: {message: Message_T}) => {
+const TextMessage = ({message}: {message: Message_T}) => {
     let {user_id} = useAppSelector(state => state.userReducer.user)
 
     if(message.event === Event_T.user_connected) {
@@ -24,4 +24,4 @@ const Message = ({message}: {message: Message_T}) => {
 
 
 
-export default Message
+export default TextMessage

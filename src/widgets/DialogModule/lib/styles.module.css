@@ -26,6 +26,23 @@
     padding: 40px
 }
 
+@media (max-width: 600px) {
+    .container {
+        padding: 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .chat_module_container {
+        padding: 10px;
+    }
+    .header_module {
+        padding: 5px;
+    }
+}
+
 .messages_module {
     display: flex;
     justify-content: space-around;
