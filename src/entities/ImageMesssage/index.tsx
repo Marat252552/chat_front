@@ -1,9 +1,9 @@
-
+import styles from './lib/styles.module.css'
 
 
 const ImageMessage = () => {
   return (
-    <div>index</div>
+    <div className={styles.container}></div>
   )
 }
 
