@@ -1,4 +1,4 @@
-import { SendOutlined } from '@ant-design/icons'
+import { FileImageOutlined, SendOutlined } from '@ant-design/icons'
 import TransparentInput from '../TransparentInput'
 import styles from './lib/styles.module.css'
 import { useForm } from 'react-hook-form'
@@ -6,15 +6,13 @@ import { useSocket } from '../../shared/SocketProvider'
 import { useAppSelector } from '../../state/hooks'
 import TransparentButton from '../TransparentButtonContainer'
 import sendMessage from './processes/sendMessage'
-import {memo} from 'react'
+import { memo } from 'react'
 
 type Values_T = {
     text: string
 }
 
 const MessageInput = memo(({ room_id }: { room_id: string }) => {
-
-    console.log('message input rerendered')
 
     let socket = useSocket() as any
     let { user_id } = useAppSelector(state => state.userReducer.user)
@@ -29,12 +27,23 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
     return <>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.container}>
-                <TransparentInput
-                    {...register('text', { required: true })}
-                    style={{ width: '100%' }}
-                    placeholder='Введите сообщение'
-                    autoComplete='off'
-                />
+                <div className={styles.first_module}>
+                    <div>
+                        <TransparentButton>
+                            <FileImageOutlined
+                                style={{ color: 'var(--text-color)' }}
+                            />
+                        </TransparentButton>
+                    </div>
+
+                    <TransparentInput
+                        {...register('text', { required: true })}
+                        style={{ width: '100%' }}
+                        placeholder='Введите сообщение'
+                        autoComplete='off'
+                    />
+                </div>
+
                 <div>
                     <TransparentButton>
                         <SendOutlined
@@ -42,6 +51,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
                         />
                     </TransparentButton>
                 </div>
+
 
             </div>
         </form>

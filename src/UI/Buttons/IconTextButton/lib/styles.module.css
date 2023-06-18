@@ -12,7 +12,7 @@
     transform: 0.5s;
 }
 
-.container:hover {
+.container:active {
     border-radius: 10px;
     background: #ffffff;
     color: black;
