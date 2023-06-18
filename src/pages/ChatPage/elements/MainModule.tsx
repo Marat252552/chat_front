@@ -5,7 +5,7 @@ import ReloadingStatus from "./ReloadingStatus"
 
 
 
-const MainModule = () => {
+const MainModule = ({setNavbarActive}: {setNavbarActive: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     let { currentDialog } = useAppSelector(state => state.dialogsReducer)
     let { is_connected } = useAppSelector(state => state.userReducer)
@@ -14,9 +14,9 @@ const MainModule = () => {
         {
             (is_connected) ?
                 (!currentDialog.room_id) ?
-                    <ChooseDialogStatus />
+                    <ChooseDialogStatus setNavbarActive={setNavbarActive}/>
                     :
-                    <DialogModule />
+                    <DialogModule setNavbarActive={setNavbarActive}/>
                 :
                 <ReloadingStatus />
         }

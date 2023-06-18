@@ -11,6 +11,7 @@ import MainModule from "./elements/MainModule"
 const ChatPage = () => {
 
     let [isScrolled, setIsScrolled] = useState(false)
+    let [navbarActive, setNavbarActive] = useState(false)
     let navigate = useNavigate()
     let navigateToInfoPage = () => {
         setIsScrolled(true)
@@ -26,9 +27,8 @@ const ChatPage = () => {
             <MainPageTemplate>
 
                 <div className={styles.container}>
-
-                    <DialogsBar navigateToInfoPage={navigateToInfoPage} />
-                    <MainModule />
+                    {navbarActive && <DialogsBar setNavbarActive={setNavbarActive} active={navbarActive} navigateToInfoPage={navigateToInfoPage} />}
+                    <MainModule setNavbarActive={setNavbarActive} />
 
                 </div>
 

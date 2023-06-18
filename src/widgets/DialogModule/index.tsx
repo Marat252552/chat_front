@@ -6,7 +6,7 @@ import {useMemo} from 'react'
 import HeaderModule from './elements/HeaderModule'
 
 
-const DialogModule = () => {
+const DialogModule = ({setNavbarActive}: {setNavbarActive: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     let { currentDialog } = useAppSelector(state => state.dialogsReducer)
     let { room_id, name } = currentDialog
@@ -18,7 +18,7 @@ const DialogModule = () => {
 
     return <div className={styles.container}>
         
-        <HeaderModule name={name}/>
+        <HeaderModule setNavbarActive={setNavbarActive} name={name}/>
 
         <div className={styles.chat_module_container}>
             <div className={styles.chat_module}>

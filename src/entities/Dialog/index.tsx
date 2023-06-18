@@ -7,7 +7,7 @@ import StatusCircle from "../StatusCircle"
 import styles from './lib/styles.module.css'
 
 
-const Dialog = ({ dialog, is_connected }: { dialog: Dialog_T, is_connected: boolean }) => {
+const Dialog = ({ dialog, is_connected, setNavbarActive }: { dialog: Dialog_T, is_connected: boolean, setNavbarActive: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     let { setCurrentRoomId } = dialogsSlice.actions
     let dispatch = useAppDispatch()
@@ -15,12 +15,14 @@ const Dialog = ({ dialog, is_connected }: { dialog: Dialog_T, is_connected: bool
     let changeCurrentDialog = () => {
         dispatch(setCurrentRoomId(dialog))
     }
-
     let name = getShortenedValue(dialog.name, 12)
     let room_id = getShortenedValue(dialog.room_id, 12)
     
     return <>
-        <div onClick={changeCurrentDialog}>
+        <div onClick={() => {
+            changeCurrentDialog()
+            setNavbarActive(false)
+            }}>
             <Element>
                 <StatusCircle is_connected={is_connected}/>
                 <span className={styles.text}>{name || room_id || 'ID'}</span>

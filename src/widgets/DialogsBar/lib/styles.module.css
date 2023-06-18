@@ -9,6 +9,23 @@
     border-radius: 10px;
     box-sizing: border-box;
     background-color: #121214;
+    display: none;
+}
+
+.container.active {
+    display: inherit;
+}
+
+@media (max-width: 600px) {
+    .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+    }
 }
 
 .module {
