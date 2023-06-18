@@ -1,6 +1,6 @@
 import IncomingMessage from "../../UI/IncomingMessage";
 import OutcomingMessage from "../../UI/OutcomingMessage";
-import MiddleText from "../../shared/Texts/MiddleText";
+import MiddleText from "../../shared/Texts/MiddleText/MiddleText";
 import { Event_T, Message_T } from "../../shared/types";
 import { useAppSelector } from "../../state/hooks";
 

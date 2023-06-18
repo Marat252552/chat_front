@@ -1,0 +1,13 @@
+.mobile_version_button {
+    display: none
+}
+
+
+@media (max-width: 600px) {
+    .pc_version_button {
+        display: none
+    }
+    .mobile_version_button {
+        display: inherit
+    }
+}

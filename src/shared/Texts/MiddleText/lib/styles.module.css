@@ -1,0 +1,11 @@
+.text {
+    font-family: Montserrat;
+    font-size: 14px;
+    color: var(--middle-text-color);
+}
+
+@media (max-width: 600px) {
+    .text {
+        font-size: 10px;
+    }
+}

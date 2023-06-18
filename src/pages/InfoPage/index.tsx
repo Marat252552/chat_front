@@ -5,7 +5,7 @@ import background_styles from './lib/background.module.css'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
 import StarText from "../../shared/Texts/StarText"
-import MiddleText from "../../shared/Texts/MiddleText"
+import MiddleText from "../../shared/Texts/MiddleText/MiddleText"
 import FilledContainer from "../../UI/FilledContainer"
 import IconTextButton from "../../UI/Buttons/IconTextButton"
 import { RollbackOutlined } from "@ant-design/icons"

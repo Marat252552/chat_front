@@ -1,0 +1,12 @@
+.text {
+    font-family: Montserrat;
+    font-size: 15px;
+    color: var(--star_text-color);
+}
+
+@media (max-width: 600px) {
+    .text {
+        font-size: 12px;
+    }
+}
+

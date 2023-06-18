@@ -1,6 +1,6 @@
 import FilledElement from '../../UI/FilledElement'
 import StatusCircle from '../../entities/StatusCircle'
-import MiddleText from '../../shared/Texts/MiddleText'
+import MiddleText from '../../shared/Texts/MiddleText/MiddleText'
 
 const StatusDisplay = ({is_connected}: {is_connected: boolean}) => {
 
