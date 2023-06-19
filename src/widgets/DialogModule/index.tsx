@@ -21,6 +21,7 @@ const DialogModule = ({ setNavbarActive }: { setNavbarActive: React.Dispatch<Rea
 
         <div className={styles.chat_module_container}>
             <div className={styles.chat_module}>
+                
                 <div className={styles.messages_module}>
                     {messages.map(message => (
                         <Message key={message.message_id} message={message} />

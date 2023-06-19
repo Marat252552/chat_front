@@ -6,7 +6,7 @@ const TransparentInput = forwardRef((props: any, ref: any) => (
     <input
         {...props}
         ref={ref}
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
         className={styles.custom_input}
     />
 ))
