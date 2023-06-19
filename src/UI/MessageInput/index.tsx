@@ -1,4 +1,4 @@
-import { FileImageOutlined, FileImageTwoTone, SendOutlined } from '@ant-design/icons'
+import { FileImageOutlined, FileImageTwoTone, LoadingOutlined, SendOutlined } from '@ant-design/icons'
 import TransparentInput from '../TransparentInput'
 import styles from './lib/styles.module.css'
 import { useForm } from 'react-hook-form'
@@ -8,13 +8,14 @@ import TransparentButton from '../TransparentButtonContainer'
 import sendMessage from './processes/sendMessage'
 import { memo, useState } from 'react'
 import preuploadFileAPI from './processes/preuploadFileAPI'
+import { Spin } from 'antd'
 
 type Values_T = {
     text: string,
 }
 
-let CustomIcon = ({Icon}: {Icon: any}) => <Icon
-    style={{ color: 'var(--text-color)', cursor: 'pointer'}}
+let CustomIcon = ({ Icon }: { Icon: any }) => <Icon
+    style={{ color: 'var(--text-color)', cursor: 'pointer' }}
 />
 
 const MessageInput = memo(({ room_id }: { room_id: string }) => {
@@ -24,6 +25,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
 
     let { register, handleSubmit, reset } = useForm<Values_T>()
     let [fileId, setFileId] = useState<string | undefined>()
+    let [fileLoading, setFileLoading] = useState(false)
 
     let onSubmit = ({ text }: Values_T) => {
         if (!fileId && !text) return
@@ -33,6 +35,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
     }
 
     let preuploadFile = async (e: any) => {
+        setFileLoading(true)
         try {
             const file = e.target.files[0]
             if (!file) return
@@ -40,8 +43,10 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
             formData.append('file', file)
             let file_id: string = await preuploadFileAPI(formData)
             setFileId(file_id)
-        } catch(e) {
+        } catch (e) {
             console.log(e)
+        } finally {
+            setFileLoading(false)
         }
     }
 
@@ -50,22 +55,33 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
             <div className={styles.container}>
                 <div className={styles.first_module}>
                     <div>
-                        <input
-                            className={styles.file_input}
-                            onChange={preuploadFile}
-                            id='file'
-                            type='file'
-                            name='file'
-                        />
-                        <label htmlFor='file'>
-                            {
-                                fileId ?
-                                    <CustomIcon Icon={FileImageTwoTone}/>
-                                    :
-                                    <CustomIcon Icon={FileImageOutlined}/>
-                            }
 
-                        </label>
+                        {
+                            fileLoading ?
+                                <Spin indicator={<LoadingOutlined style={{ fontSize: 14, color: 'var(--middle-text-color)' }} spin />} />
+                                :
+                                <>
+                                    <input
+                                        className={styles.file_input}
+                                        onChange={preuploadFile}
+                                        id='file'
+                                        type='file'
+                                        name='file'
+                                    />
+
+                                    <label htmlFor='file'>
+                                        {
+                                            fileId ?
+                                                <CustomIcon Icon={FileImageTwoTone} />
+                                                :
+                                                <CustomIcon Icon={FileImageOutlined} />
+                                        }
+                                    </label>
+                                </>
+
+                        }
+
+
 
                     </div>
 
@@ -79,7 +95,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
 
                 <div>
                     <TransparentButton>
-                        <CustomIcon Icon={SendOutlined}/>
+                        <CustomIcon Icon={SendOutlined} />
                     </TransparentButton>
                 </div>
 

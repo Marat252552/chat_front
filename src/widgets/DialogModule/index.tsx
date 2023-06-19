@@ -15,7 +15,6 @@ const DialogModule = ({ setNavbarActive }: { setNavbarActive: React.Dispatch<Rea
         return message.room_id === room_id
     })
 
-
     return <div className={styles.container}>
 
         <HeaderModule setNavbarActive={setNavbarActive} name={name} />
@@ -27,9 +26,8 @@ const DialogModule = ({ setNavbarActive }: { setNavbarActive: React.Dispatch<Rea
                         <Message key={message.message_id} message={message} />
                     ))}
                 </div>
-                {/* <div style={{ border: 'solid 1px red', height: '100%' }}> */}
+
                 <MessageInput room_id={room_id} />
-                {/* </div> */}
             </div>
         </div>
 
