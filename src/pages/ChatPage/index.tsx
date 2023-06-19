@@ -29,7 +29,6 @@ const ChatPage = () => {
                 <div className={styles.container}>
                     {navbarActive && <DialogsBar setNavbarActive={setNavbarActive} active={navbarActive} navigateToInfoPage={navigateToInfoPage} />}
                     <MainModule setNavbarActive={setNavbarActive} />
-
                 </div>
 
             </MainPageTemplate>

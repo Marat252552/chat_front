@@ -7,7 +7,6 @@ import { useAppSelector } from '../../state/hooks'
 import TransparentButton from '../TransparentButtonContainer'
 import sendMessage from './processes/sendMessage'
 import { memo, useState } from 'react'
-import { v4 } from 'uuid'
 import preuploadFileAPI from './processes/preuploadFileAPI'
 
 type Values_T = {
@@ -33,21 +32,17 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
         setFileId(undefined)
     }
 
-    let preuploadFile = (e: any) => {
-        const file = e.target.files[0]
-        if (!file) return
-        let newFileId = v4()
-        setFileId(newFileId)
-        let formData = new FormData()
-        formData.append('file', file)
-        formData.append('file_id', newFileId)
-        // formData.append('user_id', user_id)
-        // formData.append('room_id', room_id)
-        // formData.append('date', JSON.stringify(new Date()))
-        // formData.append('user_id', user_id)
-        // formData.append('event', Event_T.image)
-
-        preuploadFileAPI(formData)
+    let preuploadFile = async (e: any) => {
+        try {
+            const file = e.target.files[0]
+            if (!file) return
+            let formData = new FormData()
+            formData.append('file', file)
+            let file_id: string = await preuploadFileAPI(formData)
+            setFileId(file_id)
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     return <>

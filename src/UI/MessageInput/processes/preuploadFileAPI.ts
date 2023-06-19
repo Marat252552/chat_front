@@ -6,7 +6,7 @@ const preuploadFileAPI = async (formData: FormData) => {
     const response = await axios.post(url, formData, {headers: {
         "Content-Type": "multipart/form-data"
     }})
-    return response
+    return response.data.file_id
 }
 
 // const preuploadFileAPI = async (formData: FormData) => {
