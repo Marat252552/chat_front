@@ -65,8 +65,11 @@ export const SocketProvider = ({ children }: { children: any }) => {
             socket.on("receive_message", (message: any) => {
                 dispatch(addMessage(message))
             })
+            socket.on("receive_image", (image_data: Message_T) => {
+                console.log('image recieved')
+                dispatch(addMessage(image_data))
+            })
             socket.on("user_connected", (message: Message_T) => {
-                console.log(message)
                 dispatch(addMessage(message))
             })
         }

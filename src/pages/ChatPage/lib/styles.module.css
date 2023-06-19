@@ -3,7 +3,6 @@
     height: 100%;
     display: flex;
     /* gap: 20px; */
-
 }
 
 .background_container {
@@ -13,15 +12,3 @@
     display: flex;
     justify-content: center
 }
-
-/* .pc-version {
-    width: 100%;
-    position: relative;
-    height: 100%;
-}
-
-@media (max-width: 600px) {
-    .pc_version {
-        position: absolute;
-    }
-} */

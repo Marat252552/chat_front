@@ -1,7 +1,7 @@
 import MessageInput from '../../UI/MessageInput'
 import styles from './lib/styles.module.css'
 import { useAppSelector } from '../../state/hooks'
-import TextMessage from '../../entities/TextMessage'
+import Message from '../../entities/Message'
 import HeaderModule from './elements/HeaderModule'
 
 
@@ -23,11 +23,13 @@ const DialogModule = ({ setNavbarActive }: { setNavbarActive: React.Dispatch<Rea
         <div className={styles.chat_module_container}>
             <div className={styles.chat_module}>
                 <div className={styles.messages_module}>
-                    {messages.map(message => {
-                        return <TextMessage key={message.message_id} message={message} />
-                    })}
+                    {messages.map(message => (
+                        <Message key={message.message_id} message={message} />
+                    ))}
                 </div>
+                {/* <div style={{ border: 'solid 1px red', height: '100%' }}> */}
                 <MessageInput room_id={room_id} />
+                {/* </div> */}
             </div>
         </div>
 
