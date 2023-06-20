@@ -31,6 +31,7 @@ const AddNewDialogButton = memo(() => {
 
     let { register, handleSubmit, reset } = useForm<Values_T>()
     let onSubmit = ({ name, room_id }: Values_T) => {
+        if(!room_id || !socket || !user_id) return
         roomConnect(room_id, socket, user_id)
         dispatch(addDialog({ name, room_id }))
         setActive(false)

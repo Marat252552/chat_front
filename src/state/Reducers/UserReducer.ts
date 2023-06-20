@@ -1,8 +1,8 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
 type User_T = {
-    name: string,
-    user_id: string
+    login: string | undefined,
+    user_id: string | undefined
 }
 
 type initialState_T = {
@@ -12,8 +12,8 @@ type initialState_T = {
 
 let initialState: initialState_T = {
     user: {
-        name: '',
-        user_id: ''
+        login: undefined,
+        user_id: undefined
     },
     is_connected: false
 }
@@ -22,14 +22,14 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        set_name(state, action: PayloadAction<string>) {
-            state.user.name = action.payload
-        },
-        setUserId(state, action: PayloadAction<string>) {
-            state.user.user_id = action.payload
+        setUser(state, action: PayloadAction<{login: string, user_id: string}>) {
+            state.user = action.payload
         },
         setConnection(state, action: PayloadAction<boolean>) {
             state.is_connected = action.payload
+        },
+        logout(state) {
+            state.user = {login: undefined, user_id: undefined}
         }
     }
 })

@@ -18,7 +18,7 @@ const LandingPage = () => {
         setIsScaled(true)
         setIsScrolled(true)
         setTimeout(() => {
-            navigate('/chat')
+            navigate('/login')
         }, 4000)
     }
 

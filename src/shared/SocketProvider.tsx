@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import io, { Socket } from 'socket.io-client'
-import useLocalStorage from './hooks/useLocalStorage'
 import { v4 } from 'uuid'
 import { useAppDispatch, useAppSelector } from '../state/hooks'
 import userSlice from '../state/Reducers/UserReducer'
@@ -15,22 +14,16 @@ export const useSocket = () => {
 
 export const SocketProvider = ({ children }: { children: any }) => {
 
-    const [user_id] = useLocalStorage('id', v4())
+    let { user_id } = useAppSelector(state => state.userReducer.user)
 
     let dispatch = useAppDispatch()
-    let {setConnection} = userSlice.actions
-
-    let {addMessage} = messagesSlice.actions
-    let { setUserId } = userSlice.actions
-    useEffect(() => {
-        if (user_id) {
-            dispatch(setUserId(user_id))
-        }
-    }, [user_id])
+    let { setConnection } = userSlice.actions
+    let { addMessage } = messagesSlice.actions
 
     const [socket, setSocket] = useState<Socket<any>>()
 
     useEffect(() => {
+        if (!user_id) return
         const newSocket = io(import.meta.env.VITE_BACKEND_URL, {
             query: { user_id }
         })
@@ -38,41 +31,40 @@ export const SocketProvider = ({ children }: { children: any }) => {
 
         return () => newSocket.close() as any
     }, [user_id])
-    
-    let {dialogs} = useAppSelector(state => state.dialogsReducer)
+
+    let { dialogs } = useAppSelector(state => state.dialogsReducer)
     useEffect(() => {
-        if(socket) {
-            socket.on('connect', () => {
-                dialogs.forEach(dialog => {
-                    let data = {
-                        message: {
-                            user_id,
-                            event: Event_T.user_connected,
-                            date: new Date(),
-                            text: 'Новый пользователь успешно присоединился',
-                            room_id: dialog.room_id,
-                            message_id: () => v4()
-                        },
-                        room_id: dialog.room_id
-                    }
-                    socket.emit('join_room', data)
-                })
-                dispatch(setConnection(true))
+        if (!socket) return
+        socket.on('connect', () => {
+            dialogs.forEach(dialog => {
+                let data = {
+                    message: {
+                        user_id,
+                        event: Event_T.user_connected,
+                        date: new Date(),
+                        text: 'Новый пользователь успешно присоединился',
+                        room_id: dialog.room_id,
+                        message_id: () => v4()
+                    },
+                    room_id: dialog.room_id
+                }
+                socket.emit('join_room', data)
             })
-            socket.on('disconnect', () => {
-                dispatch(setConnection(false))
-            })
-            socket.on("receive_message", (message: any) => {
-                dispatch(addMessage(message))
-            })
-            socket.on("receive_image", (image_data: Message_T) => {
-                console.log('image recieved')
-                dispatch(addMessage(image_data))
-            })
-            socket.on("user_connected", (message: Message_T) => {
-                dispatch(addMessage(message))
-            })
-        }
+            dispatch(setConnection(true))
+        })
+        socket.on('disconnect', () => {
+            dispatch(setConnection(false))
+        })
+        socket.on("receive_message", (message: any) => {
+            dispatch(addMessage(message))
+        })
+        socket.on("receive_image", (image_data: Message_T) => {
+            console.log('image recieved')
+            dispatch(addMessage(image_data))
+        })
+        socket.on("user_connected", (message: Message_T) => {
+            dispatch(addMessage(message))
+        })
     }, [socket])
 
     return <>

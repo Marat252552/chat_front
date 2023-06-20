@@ -22,7 +22,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
     let [fileLoading, setFileLoading] = useState(false)
 
     let onSubmit = ({ text }: Values_T) => {
-        if (!fileId && !text) return
+        if (!fileId && !text || !user_id || !fileId) return
         sendMessage(text, socket, room_id, user_id, fileId)
         reset()
         setFileId(undefined)

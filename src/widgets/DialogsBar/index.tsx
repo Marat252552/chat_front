@@ -2,6 +2,7 @@ import Dialog from '../../entities/Dialog'
 import AddNewDialogButton from '../../features/AddNewDialog'
 import ClearAllChats from '../../features/ClearAllChats'
 import InfoPageNavigateButton from '../../features/InfoPageNavigateButton'
+import LogoutButton from '../../features/LogoutButton'
 import StatusDisplay from '../../features/StatusDisplay'
 import { useAppSelector } from '../../state/hooks' 
 import styles from './lib/styles.module.css'
@@ -14,6 +15,7 @@ const DialogsBar = memo(({navigateToInfoPage, active, setNavbarActive}: {setNavb
 
     return <div className={`${styles.container} ${active? styles.active : undefined}` }>
         <div className={styles.module}>
+            <LogoutButton />
             <InfoPageNavigateButton navigateToInfoPage={navigateToInfoPage}/>
             <ClearAllChats />
             <StatusDisplay is_connected={is_connected} />
