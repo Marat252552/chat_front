@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
-type User_T = {
+export type User_T = {
     login: string | undefined,
     user_id: string | undefined
 }

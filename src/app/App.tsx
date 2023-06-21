@@ -2,7 +2,8 @@ import styles from './App.module.css'
 import { setupStore } from "../state/store"
 import { Provider } from "react-redux"
 import { SocketProvider } from "../shared/SocketProvider"
-import Router from "./Router"
+import Router from './Controllers/Router'
+import LoggedChecker from './Controllers/LoggedChecker'
 
 let store = setupStore()
 
@@ -12,7 +13,9 @@ const App = () => {
 
     <Provider store={store}>
       <SocketProvider>
-        <Router />
+        <LoggedChecker>
+          <Router />
+        </LoggedChecker>
       </SocketProvider>
     </Provider>
 

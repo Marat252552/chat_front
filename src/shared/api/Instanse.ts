@@ -5,7 +5,8 @@ const instanse = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
     headers: {
         "Content-Type": "application/json"
-    }
+    },
+    withCredentials: true
 })
 
 // Interceptor, устанавливающий в headers каждого запроса AccessToken
