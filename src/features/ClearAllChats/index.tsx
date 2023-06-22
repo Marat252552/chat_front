@@ -8,10 +8,10 @@ import {memo} from 'react'
 const ClearAllChats = memo(() => {
 
     let dispatch = useAppDispatch()
-    let { removeAllDialogs } = dialogsSlice.actions
+    let { resetDialogsState } = dialogsSlice.actions
 
     let clearAllChats = () => {
-        dispatch(removeAllDialogs())
+        dispatch(resetDialogsState())
     }
     return <>
         <IconTextButton

@@ -37,14 +37,14 @@ const AddNewDialogButton = memo(() => {
     let onSubmit = async ({ in_user_id }: Values_T) => {
         if (!in_user_id || !socket || !out_user_id) return
         try {
-            await addRoomAPI({ in_user_id, out_user_id })
+            await addRoomAPI({ in_user_id })
 
             let {data} = await getRoomsAPI()
             data.rooms.forEach(room => {
                 const {name, room_id} = room
                 dispatch(addDialog({ name, room_id }))
                 roomConnect(room_id, socket, out_user_id!)
-            })    
+            })
             
         } catch (e: any) {
             const message_info = e.response.data.message || 'Произошла непредвиденная ошибка'

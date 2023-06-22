@@ -28,7 +28,7 @@ const userSlice = createSlice({
         setConnection(state, action: PayloadAction<boolean>) {
             state.is_connected = action.payload
         },
-        logout(state) {
+        resetUserState(state) {
             state.user = {login: undefined, user_id: undefined}
         }
     }

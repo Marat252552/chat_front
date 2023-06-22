@@ -3,8 +3,7 @@ import instanse from "../Instanse"
 
 
 type data_T = {
-    in_user_id: string,
-    out_user_id: string
+    in_user_id: string
 }
 
 type addRoomAPI_T = (data: data_T) => Promise<AxiosResponse<{
