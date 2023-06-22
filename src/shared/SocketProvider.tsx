@@ -21,6 +21,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
     let { addMessage } = messagesSlice.actions
 
     const [socket, setSocket] = useState<Socket<any>>()
+    let { dialogs } = useAppSelector(state => state.dialogsReducer)
 
     useEffect(() => {
         if (!user_id) return
@@ -32,10 +33,30 @@ export const SocketProvider = ({ children }: { children: any }) => {
         return () => newSocket.close() as any
     }, [user_id])
 
-    let { dialogs } = useAppSelector(state => state.dialogsReducer)
+    useEffect(() => {
+        if (!socket) return
+        dialogs.forEach(dialog => {
+            let data = {
+                message: {
+                    user_id,
+                    event: Event_T.user_connected,
+                    date: new Date(),
+                    text: 'Новый пользователь успешно присоединился',
+                    room_id: dialog.room_id,
+                    message_id: () => v4()
+                },
+                user_id,
+                room_id: dialog.room_id
+            }
+
+            socket.emit('join_room', data)
+        })
+    }, [dialogs])
+
     useEffect(() => {
         if (!socket) return
         socket.on('connect', () => {
+            console.log('connect')
             dialogs.forEach(dialog => {
                 let data = {
                     message: {
@@ -46,6 +67,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
                         room_id: dialog.room_id,
                         message_id: () => v4()
                     },
+                    user_id,
                     room_id: dialog.room_id
                 }
                 socket.emit('join_room', data)
@@ -65,7 +87,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
         socket.on("user_connected", (message: Message_T) => {
             dispatch(addMessage(message))
         })
-    }, [socket])
+    }, [socket, dialogs])
 
     return <>
         <SocketContext.Provider value={socket as any}>

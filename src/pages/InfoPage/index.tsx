@@ -1,7 +1,6 @@
 import MainPageTemplate from "../../shared/templates/MainPageTemplate"
 import StartTransition from "../../shared/transitions/StartTransition"
 import styles from './lib/styles.module.css'
-import background_styles from './lib/background.module.css'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
 import StarText from "../../shared/Texts/StarText"
@@ -9,14 +8,15 @@ import MiddleText from "../../shared/Texts/MiddleText/MiddleText"
 import FilledContainer from "../../UI/FilledContainer"
 import IconTextButton from "../../UI/Buttons/IconTextButton"
 import { RollbackOutlined } from "@ant-design/icons"
+import CloseTransition from "../../shared/transitions/CloseTransition"
 
 
 const InfoPage = () => {
 
-    let [isScrolled, setIsScrolled] = useState(false)
+    let [active, setActive] = useState(false)
     let navigate = useNavigate()
     let navigateToChatPage = () => {
-        setIsScrolled(true)
+        setActive(true)
         setTimeout(() => {
             navigate('/chat')
         }, 3000)
@@ -24,8 +24,9 @@ const InfoPage = () => {
 
     return <>
         <StartTransition />
+        <CloseTransition active={active}/>
+        
         <div className={styles.background_container}>
-            <div className={`${background_styles.background} ${(isScrolled) ? background_styles.scrolled : null}`}></div>
             <MainPageTemplate>
                 <div className={styles.container}>
                     <FilledContainer>

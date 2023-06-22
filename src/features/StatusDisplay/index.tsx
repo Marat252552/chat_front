@@ -1,17 +1,28 @@
 import FilledElement from '../../UI/FilledElement'
 import StatusCircle from '../../entities/StatusCircle'
 import MiddleText from '../../shared/Texts/MiddleText/MiddleText'
+import { message } from 'antd'
 
-const StatusDisplay = ({is_connected}: {is_connected: boolean}) => {
+const StatusDisplay = ({ is_connected, user_id }: { is_connected: boolean, user_id: string | undefined}) => {
 
-    let status = is_connected ? 'Вы онлайн' : 'Вы офлайн'
+    const ID = 'Ваш ID ' + user_id
+
+    const copyToCliboard = () => {
+        if(!user_id) return
+        navigator.clipboard.writeText(user_id)
+        message.info('ID скопирован')
+    }
+
     return (
-        <FilledElement >
-            <StatusCircle is_connected={is_connected} />
-            <MiddleText>
-                {status}
-            </MiddleText>
-        </FilledElement>
+        <div onClick={copyToCliboard} style={{cursor: 'pointer'}}>
+            <FilledElement >
+                <StatusCircle is_connected={is_connected} />
+                <MiddleText>
+                    {ID}
+                </MiddleText>
+            </FilledElement>
+        </div>
+
     )
 }
 

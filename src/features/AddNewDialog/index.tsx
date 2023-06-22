@@ -9,17 +9,22 @@ import roomConnect from "./processes/roomConnect"
 import SubmitButton from "./elements/SubmitButton"
 import OpenFormButton from "./elements/OpenFormButton"
 import CloseFormButton from "./elements/CloseFormButton"
+import addRoomAPI from '../../shared/api/actions/addRoomAPI'
+import getUserAPI from '../../shared/api/actions/getUserAPI'
+import {message} from 'antd'
+import getRoomsAPI from '../../shared/api/actions/getRoomsAPI'
+
 
 type Values_T = {
     name: string,
-    room_id: string
+    in_user_id: string
 }
 
 const AddNewDialogButton = memo(() => {
 
     const socket = useSocket() as any
 
-    let { user_id } = useAppSelector(state => state.userReducer.user)
+    let { user_id: out_user_id } = useAppSelector(state => state.userReducer.user)
 
     const { addDialog } = dialogsSlice.actions
     const dispatch = useAppDispatch()
@@ -30,10 +35,23 @@ const AddNewDialogButton = memo(() => {
     }
 
     let { register, handleSubmit, reset } = useForm<Values_T>()
-    let onSubmit = ({ name, room_id }: Values_T) => {
-        if(!room_id || !socket || !user_id) return
-        roomConnect(room_id, socket, user_id)
-        dispatch(addDialog({ name, room_id }))
+    let onSubmit = async ({ in_user_id }: Values_T) => {
+        if (!in_user_id || !socket || !out_user_id) return
+        try {
+            await addRoomAPI({ in_user_id, out_user_id })
+
+            let {data} = await getRoomsAPI()
+            data.rooms.forEach(room => {
+                const {name, room_id} = room
+                dispatch(addDialog({ name, room_id }))
+                roomConnect(room_id, socket, out_user_id!)
+            })    
+            
+        } catch (e: any) {
+            const message_info = e.response.data.message || 'Произошла непредвиденная ошибка'
+            console.log(e)
+            message.error(message_info)
+        }
         setActive(false)
         reset()
     }
@@ -46,19 +64,19 @@ const AddNewDialogButton = memo(() => {
 
                     <div className={styles.hidden_module}>
                         <FilledInput
-                            {...register('room_id', {
+                            {...register('in_user_id', {
                                 required: true
                             })}
                             autoComplete='off'
-                            placeholder="Уникальный ID"
+                            placeholder="Уникальный ID пользователя"
                         />
-                        <FilledInput
+                        {/* <FilledInput
                             {...register('name', {
                                 required: true
                             })}
                             autoComplete='off'
                             placeholder="Название"
-                        />
+                        /> */}
 
                         <SubmitButton />
 

@@ -24,7 +24,7 @@ instanse.interceptors.response.use((config: any) => {
         OriginalRequest._isRetry = true
         try {
             let response = await instanse.get('/auth/refresh')
-            localStorage.setItem('access_token', response.data.accessToken)
+            localStorage.setItem('access_token', response.data.AccessToken)
             return instanse.request(OriginalRequest)
         } catch (e) {
             console.log(e)

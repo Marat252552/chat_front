@@ -4,17 +4,17 @@ import DialogsBar from "../../widgets/DialogsBar"
 import styles from './lib/styles.module.css'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react'
-import background_styles from './lib/background.module.css'
 import MainModule from "./elements/MainModule"
+import CloseTransition from "../../shared/transitions/CloseTransition"
 
 
 const ChatPage = () => {
 
-    let [isScrolled, setIsScrolled] = useState(false)
+    let [active, setActive] = useState(false)
     let [navbarActive, setNavbarActive] = useState(false)
     let navigate = useNavigate()
     let navigateToInfoPage = () => {
-        setIsScrolled(true)
+        setActive(true)
         setTimeout(() => {
             navigate('/info')
         }, 3000)
@@ -22,8 +22,9 @@ const ChatPage = () => {
 
     return <>
         <StartTransition />
+        <CloseTransition active={active}/>
+        
         <div className={styles.background_container}>
-            <div className={`${background_styles.background} ${(isScrolled) ? background_styles.scrolled : null}`}></div>
             <MainPageTemplate>
 
                 <div className={styles.container}>
