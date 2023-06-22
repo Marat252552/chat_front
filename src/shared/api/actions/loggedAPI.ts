@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios"
 import instanse from "../Instanse"
-import { User_T } from "../../../state/Reducers/UserReducer"
 
 
 type loggedAPI_T = () => Promise<AxiosResponse<{user: {

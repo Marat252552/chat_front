@@ -56,17 +56,8 @@ export const SocketProvider = ({ children }: { children: any }) => {
     useEffect(() => {
         if (!socket) return
         socket.on('connect', () => {
-            console.log('connect')
             dialogs.forEach(dialog => {
                 let data = {
-                    message: {
-                        user_id,
-                        event: Event_T.user_connected,
-                        date: new Date(),
-                        text: 'Новый пользователь успешно присоединился',
-                        room_id: dialog.room_id,
-                        message_id: () => v4()
-                    },
                     user_id,
                     room_id: dialog.room_id
                 }

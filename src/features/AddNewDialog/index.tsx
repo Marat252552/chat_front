@@ -10,7 +10,6 @@ import SubmitButton from "./elements/SubmitButton"
 import OpenFormButton from "./elements/OpenFormButton"
 import CloseFormButton from "./elements/CloseFormButton"
 import addRoomAPI from '../../shared/api/actions/addRoomAPI'
-import getUserAPI from '../../shared/api/actions/getUserAPI'
 import {message} from 'antd'
 import getRoomsAPI from '../../shared/api/actions/getRoomsAPI'
 

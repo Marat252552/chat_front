@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 import instanse from "../Instanse"
-import { Room_T } from "../../types"
+
 
 type data_T = {
     in_user_id: string,
