@@ -5,7 +5,7 @@ import { message } from 'antd'
 
 const StatusDisplay = ({ is_connected, user_id }: { is_connected: boolean, user_id: string | undefined}) => {
 
-    const ID = 'Ваш ID ' + user_id
+    const ID = 'Мой ID'
 
     const copyToCliboard = () => {
         if(!user_id) return

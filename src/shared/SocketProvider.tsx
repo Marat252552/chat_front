@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import io, { Socket } from 'socket.io-client'
-import { v4 } from 'uuid'
 import { useAppDispatch, useAppSelector } from '../state/hooks'
 import userSlice from '../state/Reducers/UserReducer'
 import messagesSlice from '../state/Reducers/MessagesReducer'
-import { Event_T, Message_T } from './types'
+import { Message_T } from './types'
 import dialogsSlice from '../state/Reducers/DialogsReducer'
 import getRoomsAPI from './api/actions/getRoomsAPI'
 
@@ -40,14 +39,6 @@ export const SocketProvider = ({ children }: { children: any }) => {
         if (!socket) return
         dialogs.forEach(dialog => {
             let data = {
-                message: {
-                    user_id,
-                    event: Event_T.user_connected,
-                    date: new Date(),
-                    text: 'Новый пользователь успешно присоединился',
-                    room_id: dialog.room_id,
-                    message_id: () => v4()
-                },
                 user_id,
                 room_id: dialog.room_id
             }
@@ -72,6 +63,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
             dispatch(setConnection(false))
         })
         socket.on("receive_message", (message: any) => {
+            console.log('message received')
             dispatch(addMessage(message))
         })
         socket.on("check_rooms", async () => {
