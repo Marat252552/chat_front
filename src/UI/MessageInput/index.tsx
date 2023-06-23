@@ -37,7 +37,7 @@ const MessageInput = memo(({ room_id }: { room_id: string }) => {
             formData.append('file', file)
             let file_id: string = await preuploadFileAPI(formData)
             setFileId(file_id)
-        } catch (e) {
+        } catch(e) {
             console.log(e)
         } finally {
             setFileLoading(false)

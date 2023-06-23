@@ -10,7 +10,7 @@ export type Dialog_T = {
 }
 
 export type Message_T = {
-    message_id: string,
+    _id: string,
     event: Event_T,
     room_id: string,
     user_id: string,

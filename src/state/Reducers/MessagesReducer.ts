@@ -16,11 +16,15 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {
         addMessage(state, action: PayloadAction<Message_T>) {
-            state.messages = state.messages.filter(message => message.message_id !== action.payload.message_id)
+            state.messages = state.messages.filter(message => message._id !== action.payload._id)
             state.messages.push(action.payload)
         },
         resetMessagesState(state) {
             state.messages = []
+        },
+        loadMessagesBundle(state, action: PayloadAction<Message_T[]>) {
+            console.log(action.payload)
+            state.messages = action.payload
         }
     }
 })

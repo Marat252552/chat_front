@@ -10,7 +10,7 @@ const Message = ({message}: {message: Message_T}) => {
     let {user_id} = useAppSelector(state => state.userReducer.user)
 
     if(message.event === Event_T.user_connected) {
-        return <div key={message.message_id} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        return <div key={message._id} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <MiddleText>{message.text || ''}</MiddleText>
         </div>
     }

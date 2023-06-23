@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import dialogsSlice from '../../state/Reducers/DialogsReducer'
 import { message } from 'antd'
 import getRoomsAPI from '../../shared/api/actions/getRoomsAPI'
+import messagesSlice from '../../state/Reducers/MessagesReducer'
 
 
 const DialogsBar: DialogsBar_T = memo(({ navigateToInfoPage, active, setNavbarActive }) => {
@@ -20,29 +21,31 @@ const DialogsBar: DialogsBar_T = memo(({ navigateToInfoPage, active, setNavbarAc
     let { is_connected, user } = useAppSelector(state => state.userReducer)
     const {user_id} = user
 
-    let dispatch = useAppDispatch()
-    let { addDialog } = dialogsSlice.actions
+    const dispatch = useAppDispatch()
+    const { loadDialogsBundle } = dialogsSlice.actions
+    const { loadMessagesBundle } = messagesSlice.actions
 
     useEffect(() => {
-        let fetchDialogs = async () => {
+        let fetchDialogsAndMessages = async () => {
             try {
                 const {data} = await getRoomsAPI()
-                const {rooms} = data
-                rooms.forEach(room => {
-                    dispatch(addDialog(room))
-                })
+                const {rooms, messages} = data
+                console.log(rooms, messages)
+                dispatch(loadDialogsBundle(rooms))
+                dispatch(loadMessagesBundle(messages))
             } catch(e: any) {
                 const message_info = e.response.data.message || 'Произошла непредвиденная ошибка'
                 console.log(e)
                 message.error(message_info)
             }
         }
-        fetchDialogs()
+        fetchDialogsAndMessages()
     }, [contacts])
 
 
     return <div className={`${styles.container} ${active ? styles.active : undefined}`}>
         <div className={styles.module}>
+            
             <LogoutButton />
             <InfoPageNavigateButton navigateToInfoPage={navigateToInfoPage} />
             <StatusDisplay is_connected={is_connected} user_id={user_id} />

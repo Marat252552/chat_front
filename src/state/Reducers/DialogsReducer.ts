@@ -33,6 +33,9 @@ const dialogsSlice = createSlice({
         setCurrentRoomId(state, action: PayloadAction<Dialog_T>) {
             state.currentDialog = action.payload
         },
+        loadDialogsBundle(state, action: PayloadAction<Dialog_T[]>) {
+            state.dialogs = action.payload
+        }
     }
 })
 
