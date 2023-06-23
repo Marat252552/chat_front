@@ -3,68 +3,42 @@ import AddNewDialogButton from '../../features/AddNewDialog'
 import InfoPageNavigateButton from '../../features/InfoPageNavigateButton'
 import LogoutButton from '../../features/LogoutButton'
 import StatusDisplay from '../../features/StatusDisplay'
-import { useAppDispatch, useAppSelector } from '../../state/hooks'
+import { useAppSelector } from '../../state/hooks'
 import styles from './lib/styles.module.css'
 import { memo } from 'react'
 import { DialogsBar_T } from './lib/types'
-import { useEffect } from 'react'
-import dialogsSlice from '../../state/Reducers/DialogsReducer'
-import { message } from 'antd'
-import getRoomsAPI from '../../shared/api/actions/getRoomsAPI'
-import messagesSlice from '../../state/Reducers/MessagesReducer'
 
 
 const DialogsBar: DialogsBar_T = memo(({ navigateToInfoPage, active, setNavbarActive }) => {
 
     let { dialogs } = useAppSelector(state => state.dialogsReducer)
-    let { contacts } = useAppSelector(state => state.contactsReducer)
     let { is_connected, user } = useAppSelector(state => state.userReducer)
-    const {user_id} = user
+    const { user_id } = user
 
-    const dispatch = useAppDispatch()
-    const { loadDialogsBundle } = dialogsSlice.actions
-    const { loadMessagesBundle } = messagesSlice.actions
+    return <>
+        <div className={`${styles.container} ${active ? styles.active : undefined}`}>
+            <div className={styles.module}>
 
-    useEffect(() => {
-        let fetchDialogsAndMessages = async () => {
-            try {
-                const {data} = await getRoomsAPI()
-                const {rooms, messages} = data
-                console.log(rooms, messages)
-                dispatch(loadDialogsBundle(rooms))
-                dispatch(loadMessagesBundle(messages))
-            } catch(e: any) {
-                const message_info = e.response.data.message || 'Произошла непредвиденная ошибка'
-                console.log(e)
-                message.error(message_info)
-            }
-        }
-        fetchDialogsAndMessages()
-    }, [contacts])
+                <LogoutButton />
+                <InfoPageNavigateButton navigateToInfoPage={navigateToInfoPage} />
+                <StatusDisplay is_connected={is_connected} user_id={user_id} />
 
+                <div className={`${styles.module} ${styles.dialogs}`}>
+                    {dialogs && dialogs.map(dialog => {
+                        return <Dialog
+                            setNavbarActive={setNavbarActive}
+                            is_connected={is_connected}
+                            key={dialog.room_id}
+                            dialog={dialog}
+                        />
+                    })}
+                </div>
 
-    return <div className={`${styles.container} ${active ? styles.active : undefined}`}>
-        <div className={styles.module}>
-            
-            <LogoutButton />
-            <InfoPageNavigateButton navigateToInfoPage={navigateToInfoPage} />
-            <StatusDisplay is_connected={is_connected} user_id={user_id} />
-
-            <div className={`${styles.module} ${styles.dialogs}`}>
-                {dialogs && dialogs.map(dialog => {
-                    return <Dialog
-                        setNavbarActive={setNavbarActive}
-                        is_connected={is_connected}
-                        key={dialog.room_id}
-                        dialog={dialog}
-                    />
-                })}
             </div>
 
+            <AddNewDialogButton />
         </div>
-
-        <AddNewDialogButton />
-    </div>
+    </>
 })
 
 
