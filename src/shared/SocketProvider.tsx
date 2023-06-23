@@ -42,13 +42,13 @@ export const SocketProvider = ({ children }: { children: any }) => {
                 user_id,
                 room_id: dialog.room_id
             }
-
             socket.emit('join_room', data)
         })
     }, [dialogs])
 
     useEffect(() => {
         if (!socket) return
+
         socket.on('connect', () => {
             dialogs.forEach(dialog => {
                 let data = {
@@ -59,15 +59,16 @@ export const SocketProvider = ({ children }: { children: any }) => {
             })
             dispatch(setConnection(true))
         })
+
         socket.on('disconnect', () => {
             dispatch(setConnection(false))
         })
+
         socket.on("receive_message", (message: any) => {
-            console.log('message received')
             dispatch(addMessage(message))
         })
-        socket.on("check_rooms", async () => {
-            console.log('check rooms')
+
+        socket.on("update_rooms", async () => {
             try {
                 const { data } = await getRoomsAPI()
                 if (!data.rooms[0]) return
@@ -84,6 +85,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
                 console.log(e)
             }
         })
+
         socket.on("user_connected", (message: Message_T) => {
             dispatch(addMessage(message))
         })
