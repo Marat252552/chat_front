@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
 
     let dispatch = useAppDispatch()
     let { setConnection } = userSlice.actions
-    let { addDialog } = dialogsSlice.actions
+    let { addDialog, loadDialogsBundle } = dialogsSlice.actions
     let { addMessage } = messagesSlice.actions
 
     const [socket, setSocket] = useState<Socket<any>>()
@@ -69,18 +69,18 @@ export const SocketProvider = ({ children }: { children: any }) => {
         })
 
         socket.on("update_rooms", async () => {
+            console.log('update rooms')
             try {
                 const { data } = await getRoomsAPI()
-                if (!data.rooms[0]) return
+                if (!data.rooms) return
+                dispatch(loadDialogsBundle(data.rooms))
                 data.rooms.forEach(room => {
                     let data = {
                         user_id,
                         room_id: room.room_id
                     }
                     socket.emit('join_room', data)
-                    dispatch(addDialog(room))
                 })
-                dispatch(setConnection(true))
             } catch (e) {
                 console.log(e)
             }

@@ -5,6 +5,8 @@ import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import styles from './lib/styles.module.css'
 import IconButton from "../../UI/Buttons/IconButton"
+import deleteChatAPI from "../../shared/api/actions/deleteChatAPI"
+import {message} from 'antd'
 
 
 const ClearChatButton = () => {
@@ -16,16 +18,23 @@ const ClearChatButton = () => {
     let { removeDialog } = dialogsSlice.actions
     let dispatch = useAppDispatch()
 
-    let leaveRoom = () => {
+    let leaveRoom = async () => {
         if (!socket) return
-        socket.emit('leave_room', room_id)
-        dispatch(removeDialog(room_id))
+        try {
+            // await deleteChatAPI(room_id)
+            socket.emit('delete_room', room_id)
+            dispatch(removeDialog(room_id))
+        } catch(e: any) {
+            const message_info = e.response.data.message || 'Произошла непредвиденная ошибка'
+            console.log(e)
+            message.error(message_info)
+        }
     }
 
     return <>
         <div className={styles.pc_version_button}>
             <IconTextButton
-                text='Покинуть чат'
+                text='Удалить и заблокировать'
                 Icon={LogoutOutlined}
                 onClick={leaveRoom}
             />

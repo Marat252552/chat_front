@@ -4,6 +4,8 @@ import { Provider } from "react-redux"
 import { SocketProvider } from "../shared/SocketProvider"
 import Router from './Controllers/Router'
 import LoggedChecker from './Controllers/LoggedChecker'
+import DialogsFetcher from './Controllers/DialogsFetcher'
+
 
 let store = setupStore()
 
@@ -14,7 +16,9 @@ const App = () => {
     <Provider store={store}>
       <SocketProvider>
         <LoggedChecker>
-          <Router />
+          <DialogsFetcher>
+            <Router />
+          </DialogsFetcher>
         </LoggedChecker>
       </SocketProvider>
     </Provider>
