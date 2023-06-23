@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
 
     let dispatch = useAppDispatch()
     let { setConnection } = userSlice.actions
-    let { addDialog, loadDialogsBundle } = dialogsSlice.actions
+    let { loadDialogsBundle } = dialogsSlice.actions
     let { addMessage } = messagesSlice.actions
 
     const [socket, setSocket] = useState<Socket<any>>()

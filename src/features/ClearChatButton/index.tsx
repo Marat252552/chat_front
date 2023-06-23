@@ -5,7 +5,6 @@ import dialogsSlice from "../../state/Reducers/DialogsReducer"
 import { useAppDispatch, useAppSelector } from "../../state/hooks"
 import styles from './lib/styles.module.css'
 import IconButton from "../../UI/Buttons/IconButton"
-import deleteChatAPI from "../../shared/api/actions/deleteChatAPI"
 import {message} from 'antd'
 
 
