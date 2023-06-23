@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../state/hooks'
 import userSlice from '../state/Reducers/UserReducer'
 import messagesSlice from '../state/Reducers/MessagesReducer'
 import { Event_T, Message_T } from './types'
+import dialogsSlice from '../state/Reducers/DialogsReducer'
+import getRoomsAPI from './api/actions/getRoomsAPI'
 
 const SocketContext = React.createContext(null)
 
@@ -18,6 +20,7 @@ export const SocketProvider = ({ children }: { children: any }) => {
 
     let dispatch = useAppDispatch()
     let { setConnection } = userSlice.actions
+    let { addDialog } = dialogsSlice.actions
     let { addMessage } = messagesSlice.actions
 
     const [socket, setSocket] = useState<Socket<any>>()
@@ -71,9 +74,23 @@ export const SocketProvider = ({ children }: { children: any }) => {
         socket.on("receive_message", (message: any) => {
             dispatch(addMessage(message))
         })
-        socket.on("receive_image", (image_data: Message_T) => {
-            console.log('image recieved')
-            dispatch(addMessage(image_data))
+        socket.on("check_rooms", async () => {
+            console.log('check rooms')
+            try {
+                const { data } = await getRoomsAPI()
+                if (!data.rooms[0]) return
+                data.rooms.forEach(room => {
+                    let data = {
+                        user_id,
+                        room_id: room.room_id
+                    }
+                    socket.emit('join_room', data)
+                    dispatch(addDialog(room))
+                })
+                dispatch(setConnection(true))
+            } catch (e) {
+                console.log(e)
+            }
         })
         socket.on("user_connected", (message: Message_T) => {
             dispatch(addMessage(message))

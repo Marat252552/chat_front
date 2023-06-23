@@ -44,6 +44,7 @@ const AddNewDialogButton = memo(() => {
                 const {name, room_id} = room
                 dispatch(addDialog({ name, room_id }))
                 roomConnect(room_id, socket, out_user_id!)
+                socket.emit('create_room', {room_id, user_id: out_user_id!})
             })
             
         } catch (e: any) {
