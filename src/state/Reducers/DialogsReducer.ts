@@ -35,6 +35,8 @@ const dialogsSlice = createSlice({
         },
         loadDialogsBundle(state, action: PayloadAction<Dialog_T[]>) {
             state.dialogs = action.payload
+            if(action.payload.find(el => el.room_id === state.currentDialog.room_id)) return
+            state.currentDialog = {name: '', room_id: ''}
         }
     }
 })
