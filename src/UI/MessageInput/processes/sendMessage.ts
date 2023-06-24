@@ -8,6 +8,7 @@ const sendMessage = (text: string, socket: any, room_id: string, user_id: string
         user_id,
         fileId,
     })
+    console.log('send message emitted')
 }
 
 export default sendMessage
